@@ -20,6 +20,12 @@ namespace Pousada.Models
         [DataType (DataType.DateTime)]
         public DateTime DataSaida { get; set; }
 
+        [Required] 
+        public int HospedeId { get; set; }
+        
+        [Required] 
+        public int QuartoId { get; set; }
+
         [ForeignKey ("HospedeId")]
         public Hospede Hospede { get; set; }
 

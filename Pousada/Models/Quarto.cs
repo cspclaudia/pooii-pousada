@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Pousada.Models.Interfaces;
 
 namespace Pousada.Models
 {
@@ -22,6 +21,6 @@ namespace Pousada.Models
         public string Descricao { get; set; }
 
         [Required]
-        public bool Disponilidade { get; set; }
+        public bool Disponivel { get; set; }
     }
 }

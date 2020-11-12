@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Pousada.Models.Interfaces;
 
 namespace Pousada.Models
 {
@@ -33,6 +32,9 @@ namespace Pousada.Models
         [Required]
         [Column (TypeName = "decimal(18, 2)")]
         public float ValorAlimentacao { get; set; }
+
+        [Required] 
+        public int ContaId { get; set; }
 
         [ForeignKey ("ContaId")]
         public Conta Conta { get; set; }

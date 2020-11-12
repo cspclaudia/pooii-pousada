@@ -26,7 +26,7 @@ namespace Pousada.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ReservaId")
+                    b.Property<int>("ReservaId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Status")
@@ -95,7 +95,7 @@ namespace Pousada.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("Disponilidade")
+                    b.Property<bool>("Disponivel")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Numero")
@@ -118,7 +118,7 @@ namespace Pousada.Migrations
                     b.Property<bool>("Alimentacao")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ContaId")
+                    b.Property<int>("ContaId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Data")
@@ -155,10 +155,10 @@ namespace Pousada.Migrations
                     b.Property<DateTime>("DataSaida")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("HospedeId")
+                    b.Property<int>("HospedeId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("QuartoId")
+                    b.Property<int>("QuartoId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -174,25 +174,33 @@ namespace Pousada.Migrations
                 {
                     b.HasOne("Pousada.Models.Reserva", "Reserva")
                         .WithMany()
-                        .HasForeignKey("ReservaId");
+                        .HasForeignKey("ReservaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Pousada.Models.RelatorioDiario", b =>
                 {
                     b.HasOne("Pousada.Models.Conta", "Conta")
                         .WithMany()
-                        .HasForeignKey("ContaId");
+                        .HasForeignKey("ContaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Pousada.Models.Reserva", b =>
                 {
                     b.HasOne("Pousada.Models.Hospede", "Hospede")
                         .WithMany()
-                        .HasForeignKey("HospedeId");
+                        .HasForeignKey("HospedeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Pousada.Models.Quarto", "Quarto")
                         .WithMany()
-                        .HasForeignKey("QuartoId");
+                        .HasForeignKey("QuartoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

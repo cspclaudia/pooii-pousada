@@ -14,39 +14,42 @@ namespace Pousada.Controllers
     {
         private readonly Context _context;
 
-        public ContaController (Context context)
+        public ContaController(Context context)
         {
             _context = context;
         }
 
         // GET: Conta
-        public async Task<IActionResult> Index ()
+        public async Task<IActionResult> Index()
         {
-            return View (await _context.Conta.ToListAsync ());
+            var context = _context.Conta.Include(c => c.Reserva);
+            return View(await context.ToListAsync());
         }
 
         // GET: Conta/Details/5
-        public async Task<IActionResult> Details (int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
-                return NotFound ();
+                return NotFound();
             }
 
             var conta = await _context.Conta
-                .FirstOrDefaultAsync (m => m.Id == id);
+                .Include(c => c.Reserva)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (conta == null)
             {
-                return NotFound ();
+                return NotFound();
             }
 
-            return View (conta);
+            return View(conta);
         }
 
         // GET: Conta/Create
-        public IActionResult Create ()
+        public IActionResult Create()
         {
-            return View ();
+            ViewData["ReservaId"] = new SelectList(_context.Reserva, "Id", "Id");
+            return View();
         }
 
         // POST: Conta/Create
@@ -54,31 +57,33 @@ namespace Pousada.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create ([Bind ("Id,ValorTotal,FormaPagamento,Status")] Conta conta)
+        public async Task<IActionResult> Create([Bind("Id,ValorTotal,FormaPagamento,Status,ReservaId")] Conta conta)
         {
             if (ModelState.IsValid)
             {
-                _context.Add (conta);
-                await _context.SaveChangesAsync ();
-                return RedirectToAction (nameof (Index));
+                _context.Add(conta);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            return View (conta);
+            ViewData["ReservaId"] = new SelectList(_context.Reserva, "Id", "Id", conta.ReservaId);
+            return View(conta);
         }
 
         // GET: Conta/Edit/5
-        public async Task<IActionResult> Edit (int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound ();
+                return NotFound();
             }
 
-            var conta = await _context.Conta.FindAsync (id);
+            var conta = await _context.Conta.FindAsync(id);
             if (conta == null)
             {
-                return NotFound ();
+                return NotFound();
             }
-            return View (conta);
+            ViewData["ReservaId"] = new SelectList(_context.Reserva, "Id", "Id", conta.ReservaId);
+            return View(conta);
         }
 
         // POST: Conta/Edit/5
@@ -86,68 +91,70 @@ namespace Pousada.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit (int id, [Bind ("Id,ValorTotal,FormaPagamento,Status")] Conta conta)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ValorTotal,FormaPagamento,Status,ReservaId")] Conta conta)
         {
             if (id != conta.Id)
             {
-                return NotFound ();
+                return NotFound();
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update (conta);
-                    await _context.SaveChangesAsync ();
+                    _context.Update(conta);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ContaExists (conta.Id))
+                    if (!ContaExists(conta.Id))
                     {
-                        return NotFound ();
+                        return NotFound();
                     }
                     else
                     {
                         throw;
                     }
                 }
-                return RedirectToAction (nameof (Index));
+                return RedirectToAction(nameof(Index));
             }
-            return View (conta);
+            ViewData["ReservaId"] = new SelectList(_context.Reserva, "Id", "Id", conta.ReservaId);
+            return View(conta);
         }
 
         // GET: Conta/Delete/5
-        public async Task<IActionResult> Delete (int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound ();
+                return NotFound();
             }
 
             var conta = await _context.Conta
-                .FirstOrDefaultAsync (m => m.Id == id);
+                .Include(c => c.Reserva)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (conta == null)
             {
-                return NotFound ();
+                return NotFound();
             }
 
-            return View (conta);
+            return View(conta);
         }
 
         // POST: Conta/Delete/5
-        [HttpPost, ActionName ("Delete")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed (int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var conta = await _context.Conta.FindAsync (id);
-            _context.Conta.Remove (conta);
-            await _context.SaveChangesAsync ();
-            return RedirectToAction (nameof (Index));
+            var conta = await _context.Conta.FindAsync(id);
+            _context.Conta.Remove(conta);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        private bool ContaExists (int id)
+        private bool ContaExists(int id)
         {
-            return _context.Conta.Any (e => e.Id == id);
+            return _context.Conta.Any(e => e.Id == id);
         }
     }
 }

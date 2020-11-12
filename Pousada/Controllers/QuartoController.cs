@@ -14,39 +14,39 @@ namespace Pousada.Controllers
     {
         private readonly Context _context;
 
-        public QuartoController (Context context)
+        public QuartoController(Context context)
         {
             _context = context;
         }
 
         // GET: Quarto
-        public async Task<IActionResult> Index ()
+        public async Task<IActionResult> Index()
         {
-            return View (await _context.Quarto.ToListAsync ());
+            return View(await _context.Quarto.ToListAsync());
         }
 
         // GET: Quarto/Details/5
-        public async Task<IActionResult> Details (int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
-                return NotFound ();
+                return NotFound();
             }
 
             var quarto = await _context.Quarto
-                .FirstOrDefaultAsync (m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (quarto == null)
             {
-                return NotFound ();
+                return NotFound();
             }
 
-            return View (quarto);
+            return View(quarto);
         }
 
         // GET: Quarto/Create
-        public IActionResult Create ()
+        public IActionResult Create()
         {
-            return View ();
+            return View();
         }
 
         // POST: Quarto/Create
@@ -54,31 +54,31 @@ namespace Pousada.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create ([Bind ("Id,ValorDiaria,Numero,Descricao,Disponilidade")] Quarto quarto)
+        public async Task<IActionResult> Create([Bind("Id,ValorDiaria,Numero,Descricao,Disponivel")] Quarto quarto)
         {
             if (ModelState.IsValid)
             {
-                _context.Add (quarto);
-                await _context.SaveChangesAsync ();
-                return RedirectToAction (nameof (Index));
+                _context.Add(quarto);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            return View (quarto);
+            return View(quarto);
         }
 
         // GET: Quarto/Edit/5
-        public async Task<IActionResult> Edit (int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound ();
+                return NotFound();
             }
 
-            var quarto = await _context.Quarto.FindAsync (id);
+            var quarto = await _context.Quarto.FindAsync(id);
             if (quarto == null)
             {
-                return NotFound ();
+                return NotFound();
             }
-            return View (quarto);
+            return View(quarto);
         }
 
         // POST: Quarto/Edit/5
@@ -86,68 +86,68 @@ namespace Pousada.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit (int id, [Bind ("Id,ValorDiaria,Numero,Descricao,Disponilidade")] Quarto quarto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ValorDiaria,Numero,Descricao,Disponivel")] Quarto quarto)
         {
             if (id != quarto.Id)
             {
-                return NotFound ();
+                return NotFound();
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update (quarto);
-                    await _context.SaveChangesAsync ();
+                    _context.Update(quarto);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!QuartoExists (quarto.Id))
+                    if (!QuartoExists(quarto.Id))
                     {
-                        return NotFound ();
+                        return NotFound();
                     }
                     else
                     {
                         throw;
                     }
                 }
-                return RedirectToAction (nameof (Index));
+                return RedirectToAction(nameof(Index));
             }
-            return View (quarto);
+            return View(quarto);
         }
 
         // GET: Quarto/Delete/5
-        public async Task<IActionResult> Delete (int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound ();
+                return NotFound();
             }
 
             var quarto = await _context.Quarto
-                .FirstOrDefaultAsync (m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (quarto == null)
             {
-                return NotFound ();
+                return NotFound();
             }
 
-            return View (quarto);
+            return View(quarto);
         }
 
         // POST: Quarto/Delete/5
-        [HttpPost, ActionName ("Delete")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed (int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var quarto = await _context.Quarto.FindAsync (id);
-            _context.Quarto.Remove (quarto);
-            await _context.SaveChangesAsync ();
-            return RedirectToAction (nameof (Index));
+            var quarto = await _context.Quarto.FindAsync(id);
+            _context.Quarto.Remove(quarto);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        private bool QuartoExists (int id)
+        private bool QuartoExists(int id)
         {
-            return _context.Quarto.Any (e => e.Id == id);
+            return _context.Quarto.Any(e => e.Id == id);
         }
     }
 }

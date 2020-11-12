@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Pousada.Models.Interfaces;
 
 namespace Pousada.Models
 {
@@ -20,6 +19,9 @@ namespace Pousada.Models
 
         [Required]
         public string Status { get; set; }
+
+        [Required]
+        public int ReservaId { get; set; }
 
         [ForeignKey ("ReservaId")]
         public Reserva Reserva { get; set; }

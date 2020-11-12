@@ -14,39 +14,39 @@ namespace Pousada.Controllers
     {
         private readonly Context _context;
 
-        public HospedeController (Context context)
+        public HospedeController(Context context)
         {
             _context = context;
         }
 
         // GET: Hospede
-        public async Task<IActionResult> Index ()
+        public async Task<IActionResult> Index()
         {
-            return View (await _context.Hospede.ToListAsync ());
+            return View(await _context.Hospede.ToListAsync());
         }
 
         // GET: Hospede/Details/5
-        public async Task<IActionResult> Details (int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
-                return NotFound ();
+                return NotFound();
             }
 
             var hospede = await _context.Hospede
-                .FirstOrDefaultAsync (m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (hospede == null)
             {
-                return NotFound ();
+                return NotFound();
             }
 
-            return View (hospede);
+            return View(hospede);
         }
 
         // GET: Hospede/Create
-        public IActionResult Create ()
+        public IActionResult Create()
         {
-            return View ();
+            return View();
         }
 
         // POST: Hospede/Create
@@ -54,31 +54,31 @@ namespace Pousada.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create ([Bind ("Id,Nome,Telefone,RG,DataNascimento,Logradouro,Bairro,Cidade,Estado")] Hospede hospede)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Telefone,RG,DataNascimento,Logradouro,Bairro,Cidade,Estado")] Hospede hospede)
         {
             if (ModelState.IsValid)
             {
-                _context.Add (hospede);
-                await _context.SaveChangesAsync ();
-                return RedirectToAction (nameof (Index));
+                _context.Add(hospede);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            return View (hospede);
+            return View(hospede);
         }
 
         // GET: Hospede/Edit/5
-        public async Task<IActionResult> Edit (int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return NotFound ();
+                return NotFound();
             }
 
-            var hospede = await _context.Hospede.FindAsync (id);
+            var hospede = await _context.Hospede.FindAsync(id);
             if (hospede == null)
             {
-                return NotFound ();
+                return NotFound();
             }
-            return View (hospede);
+            return View(hospede);
         }
 
         // POST: Hospede/Edit/5
@@ -86,68 +86,68 @@ namespace Pousada.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit (int id, [Bind ("Id,Nome,Telefone,RG,DataNascimento,Logradouro,Bairro,Cidade,Estado")] Hospede hospede)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Telefone,RG,DataNascimento,Logradouro,Bairro,Cidade,Estado")] Hospede hospede)
         {
             if (id != hospede.Id)
             {
-                return NotFound ();
+                return NotFound();
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update (hospede);
-                    await _context.SaveChangesAsync ();
+                    _context.Update(hospede);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!HospedeExists (hospede.Id))
+                    if (!HospedeExists(hospede.Id))
                     {
-                        return NotFound ();
+                        return NotFound();
                     }
                     else
                     {
                         throw;
                     }
                 }
-                return RedirectToAction (nameof (Index));
+                return RedirectToAction(nameof(Index));
             }
-            return View (hospede);
+            return View(hospede);
         }
 
         // GET: Hospede/Delete/5
-        public async Task<IActionResult> Delete (int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound ();
+                return NotFound();
             }
 
             var hospede = await _context.Hospede
-                .FirstOrDefaultAsync (m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (hospede == null)
             {
-                return NotFound ();
+                return NotFound();
             }
 
-            return View (hospede);
+            return View(hospede);
         }
 
         // POST: Hospede/Delete/5
-        [HttpPost, ActionName ("Delete")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed (int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var hospede = await _context.Hospede.FindAsync (id);
-            _context.Hospede.Remove (hospede);
-            await _context.SaveChangesAsync ();
-            return RedirectToAction (nameof (Index));
+            var hospede = await _context.Hospede.FindAsync(id);
+            _context.Hospede.Remove(hospede);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        private bool HospedeExists (int id)
+        private bool HospedeExists(int id)
         {
-            return _context.Hospede.Any (e => e.Id == id);
+            return _context.Hospede.Any(e => e.Id == id);
         }
     }
 }

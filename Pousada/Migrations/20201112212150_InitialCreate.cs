@@ -36,7 +36,7 @@ namespace Pousada.Migrations
                     ValorDiaria = table.Column<float>(type: "decimal(18, 2)", nullable: false),
                     Numero = table.Column<int>(nullable: false),
                     Descricao = table.Column<string>(nullable: false),
-                    Disponilidade = table.Column<bool>(nullable: false)
+                    Disponivel = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,8 +51,8 @@ namespace Pousada.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     DataEntrada = table.Column<DateTime>(nullable: false),
                     DataSaida = table.Column<DateTime>(nullable: false),
-                    HospedeId = table.Column<int>(nullable: true),
-                    QuartoId = table.Column<int>(nullable: true)
+                    HospedeId = table.Column<int>(nullable: false),
+                    QuartoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,13 +62,13 @@ namespace Pousada.Migrations
                         column: x => x.HospedeId,
                         principalTable: "Hospede",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reserva_Quarto_QuartoId",
                         column: x => x.QuartoId,
                         principalTable: "Quarto",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,7 +80,7 @@ namespace Pousada.Migrations
                     ValorTotal = table.Column<float>(type: "decimal(18, 2)", nullable: false),
                     FormaPagamento = table.Column<string>(nullable: false),
                     Status = table.Column<string>(nullable: false),
-                    ReservaId = table.Column<int>(nullable: true)
+                    ReservaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -90,7 +90,7 @@ namespace Pousada.Migrations
                         column: x => x.ReservaId,
                         principalTable: "Reserva",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -105,7 +105,7 @@ namespace Pousada.Migrations
                     Alimentacao = table.Column<bool>(nullable: false),
                     ValorTelefonema = table.Column<float>(type: "decimal(18, 2)", nullable: false),
                     ValorAlimentacao = table.Column<float>(type: "decimal(18, 2)", nullable: false),
-                    ContaId = table.Column<int>(nullable: true)
+                    ContaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,7 +115,7 @@ namespace Pousada.Migrations
                         column: x => x.ContaId,
                         principalTable: "Conta",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
