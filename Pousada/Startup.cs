@@ -29,9 +29,6 @@ namespace Pousada
 
             services.AddDbContext<Context> (options =>
                 options.UseSqlite (Configuration.GetConnectionString ("Context")));
-
-            services.AddDbContext<Context>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("QuartoContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
