@@ -12,8 +12,8 @@ namespace Pousada.Models
         public int Id { get; set; }
 
         [Required]
-        [Column (TypeName = "decimal(18, 2)")]
-        public float ValorTotal { get; set; }
+        [Column (TypeName = "double(18, 2)")]
+        public double ValorTotal { get; set; }
 
         [Required]
         [DataType (DataType.DateTime)]
@@ -26,12 +26,12 @@ namespace Pousada.Models
         public bool Alimentacao { get; set; }
 
         [Required]
-        [Column (TypeName = "decimal(18, 2)")]
-        public float ValorTelefonema { get; set; }
+        [Column (TypeName = "double(18, 2)")]
+        public double ValorTelefonema { get; set; }
 
         [Required]
-        [Column (TypeName = "decimal(18, 2)")]
-        public float ValorAlimentacao { get; set; }
+        [Column (TypeName = "double(18, 2)")]
+        public double ValorAlimentacao { get; set; }
 
         [Required] 
         public int ContaId { get; set; }

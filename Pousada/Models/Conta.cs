@@ -11,8 +11,8 @@ namespace Pousada.Models
         public int Id { get; set; }
 
         [Required]
-        [Column (TypeName = "decimal(18, 2)")]
-        public float ValorTotal { get; set; }
+        [Column (TypeName = "double(18, 2)")]
+        public double ValorTotal { get; set; }
 
         [Required]
         public string FormaPagamento { get; set; }

@@ -33,7 +33,8 @@ namespace Pousada.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ValorDiaria = table.Column<float>(type: "decimal(18, 2)", nullable: false),
+                    Tipo = table.Column<string>(nullable: false),
+                    ValorDiaria = table.Column<double>(type: "double(18, 2)", nullable: false),
                     Numero = table.Column<int>(nullable: false),
                     Descricao = table.Column<string>(nullable: false),
                     Disponivel = table.Column<bool>(nullable: false)
@@ -77,7 +78,7 @@ namespace Pousada.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ValorTotal = table.Column<float>(type: "decimal(18, 2)", nullable: false),
+                    ValorTotal = table.Column<double>(type: "double(18, 2)", nullable: false),
                     FormaPagamento = table.Column<string>(nullable: false),
                     Status = table.Column<string>(nullable: false),
                     ReservaId = table.Column<int>(nullable: false)
@@ -99,12 +100,12 @@ namespace Pousada.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ValorTotal = table.Column<float>(type: "decimal(18, 2)", nullable: false),
+                    ValorTotal = table.Column<double>(type: "double(18, 2)", nullable: false),
                     Data = table.Column<DateTime>(nullable: false),
                     Telefonema = table.Column<bool>(nullable: false),
                     Alimentacao = table.Column<bool>(nullable: false),
-                    ValorTelefonema = table.Column<float>(type: "decimal(18, 2)", nullable: false),
-                    ValorAlimentacao = table.Column<float>(type: "decimal(18, 2)", nullable: false),
+                    ValorTelefonema = table.Column<double>(type: "double(18, 2)", nullable: false),
+                    ValorAlimentacao = table.Column<double>(type: "double(18, 2)", nullable: false),
                     ContaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

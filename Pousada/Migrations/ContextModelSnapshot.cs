@@ -33,8 +33,8 @@ namespace Pousada.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<float>("ValorTotal")
-                        .HasColumnType("decimal(18, 2)");
+                    b.Property<double>("ValorTotal")
+                        .HasColumnType("double(18, 2)");
 
                     b.HasKey("Id");
 
@@ -101,8 +101,12 @@ namespace Pousada.Migrations
                     b.Property<int>("Numero")
                         .HasColumnType("INTEGER");
 
-                    b.Property<float>("ValorDiaria")
-                        .HasColumnType("decimal(18, 2)");
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("ValorDiaria")
+                        .HasColumnType("double(18, 2)");
 
                     b.HasKey("Id");
 
@@ -127,14 +131,14 @@ namespace Pousada.Migrations
                     b.Property<bool>("Telefonema")
                         .HasColumnType("INTEGER");
 
-                    b.Property<float>("ValorAlimentacao")
-                        .HasColumnType("decimal(18, 2)");
+                    b.Property<double>("ValorAlimentacao")
+                        .HasColumnType("double(18, 2)");
 
-                    b.Property<float>("ValorTelefonema")
-                        .HasColumnType("decimal(18, 2)");
+                    b.Property<double>("ValorTelefonema")
+                        .HasColumnType("double(18, 2)");
 
-                    b.Property<float>("ValorTotal")
-                        .HasColumnType("decimal(18, 2)");
+                    b.Property<double>("ValorTotal")
+                        .HasColumnType("double(18, 2)");
 
                     b.HasKey("Id");
 
