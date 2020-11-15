@@ -6,12 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pousada.Data;
+using Pousada.Interfaces;
 using Pousada.Models;
 
 namespace Pousada.Controllers
 {
     public class QuartoController : Controller
     {
+        private Quarto quartoSimples = new Quarto ("Simples", 90, "Com uma cama de Solteiro", true);
+        private Quarto quartoDuplo = new Quarto ("Duplo", 180, "Com uma cama de Casal", true);
+        private Quarto quartoTriplo = new Quarto ("Triplo", 270, "Com uma cama de Casal e uma de Solteiro", true);
+
         private readonly Context _context;
 
         public QuartoController (Context context)
@@ -54,51 +59,30 @@ namespace Pousada.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,Tipo,ValorDiaria,Numero,Descricao,Disponivel")] Quarto quarto)
         public async Task<IActionResult> Create ([Bind ("Id,Tipo,Numero")] Quarto quarto)
         {
-                Quarto quartoSimples = new Quarto ();
-                quartoSimples.Tipo = "Simples";
-                quartoSimples.ValorDiaria = 90.0;
-                quartoSimples.Descricao = "Com uma cama de Solteiro";
-                quartoSimples.Disponivel = true;
-
-                Quarto quartoDuplo = new Quarto ();
-                quartoDuplo.Tipo = "Duplo";
-                quartoDuplo.ValorDiaria = 180.0;
-                quartoDuplo.Descricao = "Com uma cama de Casal";
-                quartoDuplo.Disponivel = true;
-
-                Quarto quartoTriplo = new Quarto ();
-                quartoTriplo.Tipo = "Triplo";
-                quartoTriplo.ValorDiaria = 270.0;
-                quartoTriplo.Descricao = "Com uma cama de Casal e uma de Solteiro";
-                quartoTriplo.Disponivel = true;
-
-                Quarto _quarto = new Quarto ();
+            if (quarto.Numero > 0)
+            {
+                IQuarto _quarto = new Quarto ();
 
                 switch (quarto.Tipo)
                 {
                     case "Simples":
-                        _quarto = quartoSimples.Clone ();
-                        _quarto.Numero = quarto.Numero;
+                        _quarto = quartoSimples.Clone (quarto.Numero);
                         break;
                     case "Duplo":
-                        _quarto = quartoDuplo.Clone ();
-                        _quarto.Numero = quarto.Numero;
+                        _quarto = quartoDuplo.Clone (quarto.Numero);
                         break;
                     case "Triplo":
-                        _quarto = quartoTriplo.Clone ();
-                        _quarto.Numero = quarto.Numero;
+                        _quarto = quartoTriplo.Clone (quarto.Numero);
                         break;
                 }
-            // if (ModelState.IsValid)
-            // {
+
                 _context.Add (_quarto);
                 await _context.SaveChangesAsync ();
                 return RedirectToAction (nameof (Index));
-            // }
-            // return View (quarto);
+            }
+            return View (quarto);
         }
 
         // GET: Quarto/Edit/5

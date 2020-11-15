@@ -28,9 +28,21 @@ namespace Pousada.Models
         [Required]
         public bool Disponivel { get; set; }
 
-        public Quarto Clone ()
+        public Quarto () { }
+
+        public Quarto (string Tipo, double ValorDiaria, string Descricao, bool Disponivel)
         {
-            return (Quarto) this.MemberwiseClone ();
+            this.Tipo = Tipo;
+            this.ValorDiaria = ValorDiaria;
+            this.Descricao = Descricao;
+            this.Disponivel = Disponivel;
+        }
+
+        public Quarto Clone (int Numero)
+        {
+            Quarto clone = (Quarto) this.MemberwiseClone ();
+            clone.Numero = Numero;
+            return clone;
 
         }
     }

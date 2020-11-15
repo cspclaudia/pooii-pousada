@@ -4,6 +4,6 @@ namespace Pousada.Interfaces
 {
     public interface IQuarto
     {
-        Quarto Clone();
+        Quarto Clone (int Numero);
     }
 }
