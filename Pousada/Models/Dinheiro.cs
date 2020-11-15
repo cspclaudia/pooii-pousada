@@ -4,6 +4,6 @@ namespace Pousada.Models
 {
     public class Dinheiro : IPagamento
     {
-        public bool RealizarPagamento() => true;
+        public string RealizarPagamento() => "Aprovado";
     }
 }

@@ -12,17 +12,17 @@ namespace Pousada.Models
             this._dinheiro = dinheiro;
         }
 
-        public bool RealizarPagamento ()
-        {
-            if (!this.VerificarLimite ())
-                return false;
-            return this._dinheiro.RealizarPagamento ();
-        }
-
         public bool VerificarLimite ()
         {
-            var result = new Random().Next(2) == 1; // 0 = false, 1 = true;
-            return result;
+            return new Random ().Next (2) == 1; // 0 = false, 1 = true;
         }
+
+        public string RealizarPagamento ()
+        {
+            if (this.VerificarLimite ())
+                return this._dinheiro.RealizarPagamento ();
+            return "Reprovado";
+        }
+
     }
 }
