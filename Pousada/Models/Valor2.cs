@@ -4,11 +4,9 @@ namespace Pousada.Models
 {
     public class Valor2 : IValor
     {
-        private double _telefonema { get; set; } = 10;
-        private double _alimentacao { get; set; } = 0;
-        public double CalcularValor (double diaria)
+        public double CalcularValor (double diaria, double telefonema, double alimentacao)
         {
-            return diaria + _telefonema + _alimentacao;
+            return diaria + telefonema;
         }
     }
 }
