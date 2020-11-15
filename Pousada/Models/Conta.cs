@@ -18,7 +18,7 @@ namespace Pousada.Models
         public string FormaPagamento { get; set; }
 
         [Required]
-        public string Status { get; set; }
+        public string StatusPagamento { get; set; }
 
         [Required]
         public int ReservaId { get; set; }

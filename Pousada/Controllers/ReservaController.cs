@@ -65,7 +65,14 @@ namespace Pousada.Controllers
             {
                 _context.Add(reserva);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Conta conta = new Conta();
+                // conta.ReservaId = reserva.Id;
+                // conta.ValorTotal = _context.Quarto.Where(q => q.Id == reserva.QuartoId).Select(v => v.ValorDiaria).FirstOrDefault();
+                // conta.FormaPagamento = "Cartão";
+                // conta.StatusPagamento = "Pendente";
+                // _context.Add(conta);
+                // await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Create), "Conta");
             }
             ViewData["HospedeId"] = new SelectList(_context.Hospede, "Id", "Bairro", reserva.HospedeId);
             ViewData["QuartoId"] = new SelectList(_context.Quarto, "Id", "Descricao", reserva.QuartoId);

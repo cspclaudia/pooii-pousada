@@ -29,7 +29,7 @@ namespace Pousada.Migrations
                     b.Property<int>("ReservaId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Status")
+                    b.Property<string>("StatusPagamento")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

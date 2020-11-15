@@ -13,11 +13,11 @@ namespace Pousada.Models
         public int Id { get; set; }
 
         [Required]
-        [DataType (DataType.DateTime)]
+        [DataType (DataType.Date)]
         public DateTime DataEntrada { get; set; }
 
         [Required]
-        [DataType (DataType.DateTime)]
+        [DataType (DataType.Date)]
         public DateTime DataSaida { get; set; }
 
         [Required] 

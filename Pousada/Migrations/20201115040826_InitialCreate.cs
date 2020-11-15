@@ -80,7 +80,7 @@ namespace Pousada.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ValorTotal = table.Column<double>(type: "double(18, 2)", nullable: false),
                     FormaPagamento = table.Column<string>(nullable: false),
-                    Status = table.Column<string>(nullable: false),
+                    StatusPagamento = table.Column<string>(nullable: false),
                     ReservaId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

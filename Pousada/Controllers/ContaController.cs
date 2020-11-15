@@ -57,16 +57,21 @@ namespace Pousada.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ValorTotal,FormaPagamento,Status,ReservaId")] Conta conta)
+        public async Task<IActionResult> Create([Bind("Id")] Conta conta)
         {
-            if (ModelState.IsValid)
-            {
+            // if (ModelState.IsValid)
+            // {
+                conta.ReservaId = await _context.Reserva
+                    .Select (reserva => reserva.Id).MaxAsync ();
+                // conta.ValorTotal = _context.Quarto.Where(q => q.Id == reserva.QuartoId).Select(v => v.ValorDiaria).FirstOrDefault();
+                conta.FormaPagamento = "Cartão";
+                conta.StatusPagamento = "Pendente";
                 _context.Add(conta);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["ReservaId"] = new SelectList(_context.Reserva, "Id", "Id", conta.ReservaId);
-            return View(conta);
+            // }
+            // ViewData["ReservaId"] = new SelectList(_context.Reserva, "Id", "Id", conta.ReservaId);
+            // return View(conta);
         }
 
         // GET: Conta/Edit/5

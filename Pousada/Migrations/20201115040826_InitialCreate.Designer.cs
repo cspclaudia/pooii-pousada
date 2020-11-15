@@ -9,7 +9,7 @@ using Pousada.Data;
 namespace Pousada.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20201114210632_InitialCreate")]
+    [Migration("20201115040826_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,7 +31,7 @@ namespace Pousada.Migrations
                     b.Property<int>("ReservaId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Status")
+                    b.Property<string>("StatusPagamento")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
