@@ -1,40 +1,35 @@
 @model Pousada.Models.RelatorioDiario
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Relatório";
 }
 
-<h1>Create</h1>
+<h1>Gerar Relatório Diário</h1>
 
-<h4>RelatorioDiario</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ContaId" class="control-label"></label>
+            <div class="form-group" style="display: none;">
                 <select asp-for="ContaId" class ="form-control" asp-items="ViewBag.ContaId"></select>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Telefonema" /> @Html.DisplayNameFor(model => model.Telefonema)
+                    <input class="form-check-input" asp-for="Telefonema" /> Telefonema
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Alimentacao" /> @Html.DisplayNameFor(model => model.Alimentacao)
+                    <input class="form-check-input" asp-for="Alimentacao" /> Alimentação
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Confirmar" class="btn btn-dark" /> |
+                <a type="button" class="btn btn-light" asp-controller="Conta" asp-action="Index">Lista de Contas</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -82,7 +82,7 @@ namespace Pousada.Controllers
                 else
                     throw;
             }
-            return RedirectToAction (nameof (Index));
+            return RedirectToAction (nameof (Details), new { id = conta.Id });
         }
 
         public async Task<IActionResult> Edit (int? id)

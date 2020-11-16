@@ -1,63 +1,61 @@
 @model Pousada.Models.RelatorioDiario
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Relatório";
 }
 
-<h1>Delete</h1>
+<h1>Excluir Relatório Diário</h1>
 
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>RelatorioDiario</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ValorTotal)
+        <dt class="col-sm-3">
+            Número do Quarto
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ValorTotal)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Data)
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Conta.Reserva.Quarto.Numero)
+        </dd class>
+        <dt class="col-sm-3">
+            Data
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Data)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Telefonema)
+        <dt class="col-sm-3">
+            Telefonema
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Telefonema)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Alimentacao)
+        <dt class="col-sm-3">
+            Alimentação
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Alimentacao)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ValorTelefonema)
+        <dt class="col-sm-3">
+            Valor do Telefonema
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.ValorTelefonema)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ValorAlimentacao)
+        <dt class="col-sm-3">
+            Valor da Alimentação
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.ValorAlimentacao)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Conta)
+        <dt class="col-sm-3">
+            Valor Total do Dia
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Conta.FormaPagamento)
-        </dd class>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.ValorTotal)
+        </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Confirmar" class="btn btn-dark" /> |
+        <a type="button" class="btn btn-light" asp-action="Index" asp-route-id="@Model.ContaId">Lista de Relatórios</a>
     </form>
 </div>

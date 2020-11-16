@@ -4,8 +4,17 @@
 
 <div class="text-center">
     <h1 class="display-4">Sistema de Reservas</h1><br>
-    <a type="button" class="btn btn-dark" asp-controller="Reserva" asp-action="Create">Fazer Reserva</a>
-    <a type="button" class="btn btn-dark" asp-controller="Hospede" asp-action="Index">Verificar Cadastro</a>
-    <a type="button" class="btn btn-dark" asp-controller="Hospede" asp-action="Create">Cadastrar Hospede</a>
-    <a type="button" class="btn btn-dark" asp-controller="Quarto" asp-action="Create">Cadastrar Quarto</a>
+</div><br>
+<div class="text-center">
+    <a type="button" class="btn btn-dark col-md-3" asp-controller="Hospede" asp-action="Create">Cadastrar Hospede</a>
+    <a type="button" class="btn btn-dark col-md-3" asp-controller="Hospede" asp-action="Index">Pesquisar Hospede</a>
+</div><br><br>
+<div class="text-center">
+    <a type="button" class="btn btn-dark col-md-2" asp-controller="Reserva" asp-action="Create">Nova Reserva</a>
+    <a type="button" class="btn btn-dark col-md-2" asp-controller="Reserva" asp-action="Index">Listar Reservas</a>
+    <a type="button" class="btn btn-dark col-md-2" asp-controller="Conta" asp-action="Index">Listar Contas</a>
+</div><br><br>
+<div class="text-center">
+    <a type="button" class="btn btn-dark col-md-3" asp-controller="Quarto" asp-action="Create">Cadastrar Quarto</a>
+    <a type="button" class="btn btn-dark col-md-3" asp-controller="Quarto" asp-action="Index">Listar Quartos</a>
 </div>

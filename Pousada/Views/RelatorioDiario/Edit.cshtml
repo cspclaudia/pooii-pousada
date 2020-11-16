@@ -1,28 +1,17 @@
 @model Pousada.Models.RelatorioDiario
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Relatório";
 }
 
-<h1>Edit</h1>
+<h1>Editar Relatório Diário</h1>
 
-<h4>RelatorioDiario</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="ValorTotal" class="control-label"></label>
-                <input asp-for="ValorTotal" class="form-control" />
-                <span asp-validation-for="ValorTotal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Data" class="control-label"></label>
-                <input asp-for="Data" class="form-control" />
-                <span asp-validation-for="Data" class="text-danger"></span>
-            </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Telefonema" /> @Html.DisplayNameFor(model => model.Telefonema)
@@ -33,30 +22,27 @@
                     <input class="form-check-input" asp-for="Alimentacao" /> @Html.DisplayNameFor(model => model.Alimentacao)
                 </label>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display: none;">
                 <label asp-for="ValorTelefonema" class="control-label"></label>
                 <input asp-for="ValorTelefonema" class="form-control" />
                 <span asp-validation-for="ValorTelefonema" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display: none;">
                 <label asp-for="ValorAlimentacao" class="control-label"></label>
                 <input asp-for="ValorAlimentacao" class="form-control" />
                 <span asp-validation-for="ValorAlimentacao" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ContaId" class="control-label"></label>
-                <select asp-for="ContaId" class="form-control" asp-items="ViewBag.ContaId"></select>
-                <span asp-validation-for="ContaId" class="text-danger"></span>
+            <div class="form-group" style="display: none;">
+                <label asp-for="ValorTotal" class="control-label"></label>
+                <input asp-for="ValorTotal" class="form-control" />
+                <span asp-validation-for="ValorTotal" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Confirmar" class="btn btn-dark" /> |
+                <a type="button" class="btn btn-light" asp-action="Index" asp-route-id="@Model.ContaId">Lista de Relatórios</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

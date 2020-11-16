@@ -1,38 +1,17 @@
 @model IEnumerable<Pousada.Models.RelatorioDiario>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Relatório";
 }
 
-<h1>Index</h1>
+<h1>Lista de Relatórios Diários da Conta</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ValorTotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Data)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefonema)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Alimentacao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ValorTelefonema)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ValorAlimentacao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Conta)
-            </th>
+            <th>Número do Quarto</th>
+            <th>Data</th>
+            <th>Valor Total do Dia</th>
             <th></th>
         </tr>
     </thead>
@@ -40,32 +19,28 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ValorTotal)
+                @Html.DisplayFor(modelItem => item.Conta.Reserva.Quarto.Numero)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Data)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Telefonema)
+                @Html.DisplayFor(modelItem => item.ValorTotal)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Alimentacao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValorTelefonema)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValorAlimentacao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Conta.FormaPagamento)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a type="button" class="btn btn-dark" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                <a type="button" class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                <a type="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<a type="button" class="btn btn-light" asp-controller="Conta" asp-action="Index">Lista de Contas</a>
+
+@foreach (var item in Model)
+{
+    <a type="button" class="btn btn-light" asp-controller="Conta" asp-action="Details" asp-route-id="@item.ContaId">Detalhes da Conta</a>
+    break;
+}
