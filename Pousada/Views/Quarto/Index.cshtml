@@ -1,32 +1,22 @@
 @model IEnumerable<Pousada.Models.Quarto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Quarto";
 }
 
-<h1>Index</h1>
+<h1>Lista de Quartos</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a type="button" class="btn btn-dark" asp-action="Create">Cadastrar Quarto</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Tipo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ValorDiaria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Numero)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descricao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Disponivel)
-            </th>
+            <th>Tipo</th>
+            <th>Valor da Diária</th>
+            <th>Nímero</th>
+            <th>Descrição</th>
+            <th>Disponível</th>
             <th></th>
         </tr>
     </thead>
@@ -49,9 +39,9 @@
                 @Html.DisplayFor(modelItem => item.Disponivel)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a type="button" class="btn btn-dark" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                <a type="button" class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                <a type="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
             </td>
         </tr>
 }
