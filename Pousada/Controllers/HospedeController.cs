@@ -19,48 +19,34 @@ namespace Pousada.Controllers
             _context = context;
         }
 
-        // GET: Hospede
         public async Task<IActionResult> Index (string searchString)
         {
-            var hospedes = from h in _context.Hospede
-            select h;
+            var hospedes = _context.Hospede.Select(h => h);
 
             if (!String.IsNullOrEmpty (searchString))
-            {
                 hospedes = hospedes.Where (hospede => hospede.Nome.Contains (searchString) || hospede.RG.Contains (searchString));
-            }
 
             return View (await hospedes.ToListAsync ());
-            // return View (await _context.Hospede.ToListAsync ());
         }
 
-        // GET: Hospede/Details/5
         public async Task<IActionResult> Details (int? id)
         {
             if (id == null)
-            {
                 return NotFound ();
-            }
 
             var hospede = await _context.Hospede
                 .FirstOrDefaultAsync (m => m.Id == id);
             if (hospede == null)
-            {
                 return NotFound ();
-            }
 
             return View (hospede);
         }
 
-        // GET: Hospede/Create
         public IActionResult Create ()
         {
             return View ();
         }
 
-        // POST: Hospede/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create ([Bind ("Id,Nome,Telefone,RG,DataNascimento,Logradouro,Bairro,Cidade,Estado")] Hospede hospede)
@@ -74,33 +60,24 @@ namespace Pousada.Controllers
             return View (hospede);
         }
 
-        // GET: Hospede/Edit/5
         public async Task<IActionResult> Edit (int? id)
         {
             if (id == null)
-            {
                 return NotFound ();
-            }
 
             var hospede = await _context.Hospede.FindAsync (id);
             if (hospede == null)
-            {
                 return NotFound ();
-            }
+                
             return View (hospede);
         }
 
-        // POST: Hospede/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit (int id, [Bind ("Id,Nome,Telefone,RG,DataNascimento,Logradouro,Bairro,Cidade,Estado")] Hospede hospede)
         {
             if (id != hospede.Id)
-            {
                 return NotFound ();
-            }
 
             if (ModelState.IsValid)
             {
@@ -112,38 +89,28 @@ namespace Pousada.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!HospedeExists (hospede.Id))
-                    {
                         return NotFound ();
-                    }
                     else
-                    {
                         throw;
-                    }
                 }
                 return RedirectToAction (nameof (Index));
             }
             return View (hospede);
         }
 
-        // GET: Hospede/Delete/5
         public async Task<IActionResult> Delete (int? id)
         {
             if (id == null)
-            {
                 return NotFound ();
-            }
 
             var hospede = await _context.Hospede
                 .FirstOrDefaultAsync (m => m.Id == id);
             if (hospede == null)
-            {
                 return NotFound ();
-            }
 
             return View (hospede);
         }
 
-        // POST: Hospede/Delete/5
         [HttpPost, ActionName ("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed (int id)

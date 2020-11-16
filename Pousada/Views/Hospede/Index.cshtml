@@ -1,14 +1,10 @@
 @model IEnumerable<Pousada.Models.Hospede>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Hospede";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h1>Lista de Hospedes</h1>
 
 <form asp-action="Index" method="get">
     <div class="row">
@@ -16,7 +12,9 @@
             <input class="form-control mb-2" type="text" name="SearchString" placeholder="Nome ou RG">
         </div>
         <div class="col-auto">
-            <input class="btn btn-dark" type="submit" value="Pesquisar" />
+            <input class="btn btn-dark" type="submit" value="Pesquisar" /> |
+            <a type="button" class="btn btn-dark" asp-action="Index">Ver Todos</a> |
+            <a type="button" class="btn btn-dark" asp-action="Create">Cadastrar Hospede</a>
         </div>
     </div>
 </form>
@@ -24,30 +22,11 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RG)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataNascimento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Logradouro)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bairro)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cidade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>RG</th>
+            <th>Data de Nascimento</th>
+            <th>Cidade</th>
             <th></th>
         </tr>
     </thead>
@@ -68,27 +47,14 @@
                     @Html.DisplayFor(modelItem => item.DataNascimento)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Logradouro)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Bairro)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Cidade)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Estado)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a type="button" class="btn btn-dark" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                    <a type="button" class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                    <a type="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>

@@ -1,59 +1,58 @@
 @model Pousada.Models.Hospede
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Hospede";
 }
 
-<h1>Details</h1>
+<h1>Detalhes do Hospede</h1>
 
 <div>
-    <h4>Hospede</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
+            Nome
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Nome)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Telefone)
+            Telefone
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Telefone)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RG)
+            RG
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.RG)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataNascimento)
+            Data de Nascimento
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DataNascimento)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Logradouro)
+            Logradouro
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Logradouro)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Bairro)
+            Bairro
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Bairro)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cidade)
+            Cidade
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Cidade)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
+            Estado
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Estado)
@@ -61,6 +60,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a type="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a asp-action="Index">Lista de Hospedes</a>
 </div>
