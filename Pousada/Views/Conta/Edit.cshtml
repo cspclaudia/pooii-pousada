@@ -1,12 +1,11 @@
 @model Pousada.Models.Conta
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Conta";
 }
 
-<h1>Edit</h1>
+<h1>Editar Conta</h1>
 
-<h4>Conta</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,34 +13,19 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="ValorTotal" class="control-label"></label>
-                <input asp-for="ValorTotal" class="form-control" />
-                <span asp-validation-for="ValorTotal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FormaPagamento" class="control-label"></label>
-                <input asp-for="FormaPagamento" class="form-control" />
+                <label class="control-label">Forma de Pagamento</label>
+                <select asp-for="FormaPagamento" class="form-control" >
+                    <option value="Dinheiro">Dinheiro</option> 
+                    <option value="Cartão" selected>Cartão</option>
+                </select>
                 <span asp-validation-for="FormaPagamento" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StatusPagamento" class="control-label"></label>
-                <input asp-for="StatusPagamento" class="form-control" />
-                <span asp-validation-for="StatusPagamento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReservaId" class="control-label"></label>
-                <select asp-for="ReservaId" class="form-control" asp-items="ViewBag.ReservaId"></select>
-                <span asp-validation-for="ReservaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Confirmar" class="btn btn-dark" /> |
+                <a asp-action="Index">Lista de Contas</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

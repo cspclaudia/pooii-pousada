@@ -37,10 +37,11 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
-
+    <a type="button" class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a asp-action="Index">Lista de Reservas</a>
+</div><br>
 <div>
+    <a type="button" class="btn btn-dark" asp-controller="Conta" asp-action="Create" asp-route-id="@Model.Id">Abrir Conta</a>
+    <a type="button" class="btn btn-dark" asp-controller="Conta" asp-action="Details" asp-route-id="@Model.Id">Ver Conta</a>
     <a type="button" class="btn btn-dark" asp-controller="RelatorioDiario" asp-action="Create">Gerar Relatório Diário</a>
 </div>

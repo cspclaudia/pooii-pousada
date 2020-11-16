@@ -1,46 +1,49 @@
 @model Pousada.Models.Conta
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Conta";
 }
 
-<h1>Details</h1>
+<h1>Detalhes da Conta</h1>
 
 <div>
-    <h4>Conta</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ValorTotal)
+        <dt class = "col-sm-3">
+            Número do Quarto:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Reserva.Quarto.Numero)
+        </dd>
+        <dt class = "col-sm-3">
+            Valor Total:
+        </dt>
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.ValorTotal)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FormaPagamento)
+        <dt class = "col-sm-3">
+            Forma de Pagamento:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.FormaPagamento)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StatusPagamento)
+        <dt class = "col-sm-3">
+            Status do Pagamento:
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.StatusPagamento)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Reserva)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Reserva.Id)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
-
+    <a type="button" class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a asp-action="Index">Lista de Contas</a>
+</div><br>
 <div>
-    <a type="button" class="btn btn-dark" asp-action="Pay" asp-route-id="@Model.Id">Pagar</a>
+    @if (Model.StatusPagamento != "Aprovado") {
+        <a type="button" class="btn btn-dark" asp-action="Pay" asp-route-id="@Model.Id">Cobrar</a>
+    }
+    <a type="button" class="btn btn-dark" asp-controller="RelatorioDiario" asp-action="Create">Gerar Relatório Diário</a>
+    <a type="button" class="btn btn-dark" asp-controller="RelatorioDiario" asp-action="Index" asp-route-id="@Model.Id">Ver Relatórios</a>
+    <a type="button" class="btn btn-dark" asp-controller="Reserva" asp-action="Details" asp-route-id="@Model.ReservaId">Ver Reserva</a>
 </div>

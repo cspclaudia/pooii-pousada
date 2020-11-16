@@ -1,45 +1,43 @@
 @model Pousada.Models.Conta
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Conta";
 }
 
-<h1>Delete</h1>
+<h1>Excluir Conta</h1>
 
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Conta</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ValorTotal)
+        <dt class = "col-sm-3">
+            Número do Quarto
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Reserva.Quarto.Numero)
+        </dd class>
+        <dt class = "col-sm-3">
+            ValorTotal
+        </dt>
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.ValorTotal)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FormaPagamento)
+        <dt class = "col-sm-3">
+            Forma de Pagamento
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.FormaPagamento)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StatusPagamento)
+        <dt class = "col-sm-3">
+            Status do Pagamento
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.StatusPagamento)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Reserva)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Reserva.Id)
-        </dd class>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Confirmar" class="btn btn-dark" /> |
+        <a asp-action="Index">Lista de Contas</a>
     </form>
 </div>

@@ -21,9 +21,18 @@ namespace Pousada.Controllers
         }
 
         // GET: RelatorioDiario
-        public async Task<IActionResult> Index ()
+        public async Task<IActionResult> Index (int? id)
         {
-            var context = _context.RelatorioDiario.Include (r => r.Conta);
+            if (id == null)
+                return NotFound ();
+
+            var context = _context.RelatorioDiario
+                .Include (r => r.Conta)
+                .Where (m => m.ContaId == id);
+
+            if (context == null)
+                return NotFound ();
+                
             return View (await context.ToListAsync ());
         }
 
@@ -69,7 +78,7 @@ namespace Pousada.Controllers
                     .Where (conta => conta.Id == relatorioDiario.ContaId)
                     .Include (conta => conta.Reserva.Quarto)
                     .FirstOrDefault ();
-                
+
                 if (!relatorioDiario.Telefonema && !relatorioDiario.Alimentacao)
                 {
                     IValor valor = new Valor1 ();
@@ -103,6 +112,7 @@ namespace Pousada.Controllers
                         relatorioDiario.ValorAlimentacao);
                 }
 
+                conta.ValorTotal += relatorioDiario.ValorTotal;
                 relatorioDiario.Data = DateTime.Now;
                 _context.Add (relatorioDiario);
                 await _context.SaveChangesAsync ();
