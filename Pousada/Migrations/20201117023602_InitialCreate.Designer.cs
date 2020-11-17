@@ -9,7 +9,7 @@ using Pousada.Data;
 namespace Pousada.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20201115040826_InitialCreate")]
+    [Migration("20201117023602_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
