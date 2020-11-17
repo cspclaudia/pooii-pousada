@@ -63,7 +63,10 @@ namespace Pousada.Controllers
             if (conta == null)
                 return NotFound ();
 
-            if (DateTime.Compare(relatorioDiario.Data, conta.Reserva.DataEntrada) >= 0 && DateTime.Compare(relatorioDiario.Data, conta.Reserva.DataEntrada) <= 0)
+            var context = _context.RelatorioDiario
+                .Where (m => m.Data == relatorioDiario.Data).FirstOrDefault ();
+
+            if (context == null && DateTime.Compare (relatorioDiario.Data, conta.Reserva.DataEntrada) >= 0 && DateTime.Compare (relatorioDiario.Data, conta.Reserva.DataSaida) <= 0)
             {
                 relatorioDiario.ValorTelefonema = relatorioDiario.Telefonema ? 15 : 0;
                 relatorioDiario.ValorAlimentacao = relatorioDiario.Alimentacao ? 70 : 0;
