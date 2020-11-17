@@ -58,15 +58,12 @@ namespace Pousada.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create ([Bind ("Telefonema,Alimentacao,ContaId")] RelatorioDiario relatorioDiario)
         {
-            // if (ModelState.IsValid)
-            // {
             relatorioDiario.ValorTelefonema = relatorioDiario.Telefonema ? 15 : 0;
             relatorioDiario.ValorAlimentacao = relatorioDiario.Alimentacao ? 70 : 0;
 
             Conta conta = _context.Conta
                 .Where (conta => conta.Id == relatorioDiario.ContaId)
-                .Include (conta => conta.Reserva.Quarto)
-                .FirstOrDefault ();
+                .Include (conta => conta.Reserva.Quarto).FirstOrDefault ();
             if (conta == null)
                 return NotFound ();
 
@@ -93,10 +90,7 @@ namespace Pousada.Controllers
             _context.Update (conta);
 
             await _context.SaveChangesAsync ();
-            return RedirectToAction (nameof (Details), new { id = relatorioDiario.Id });
-            // }
-            // ViewData["ContaId"] = new SelectList (_context.Conta, "Id", "FormaPagamento", relatorioDiario.ContaId);
-            // return View (relatorioDiario);
+            return RedirectToAction (nameof (Index), new { id = conta.Id });
         }
 
         public async Task<IActionResult> Edit (int? id)
@@ -108,32 +102,31 @@ namespace Pousada.Controllers
             if (relatorioDiario == null)
                 return NotFound ();
 
-            ViewData["ContaId"] = new SelectList (_context.Conta, "Id", "FormaPagamento", relatorioDiario.ContaId);
+            ViewData["ContaId"] = new SelectList (_context.Conta, "Id", "Id", relatorioDiario.ContaId);
             return View (relatorioDiario);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit (int id, [Bind ("Id,Telefonema,Alimentacao,ValorTelefonema,ValorAlimentacao,ValorTotal")] RelatorioDiario relatorioDiario)
+        public async Task<IActionResult> Edit (int id, [Bind ("Id,Telefonema,Alimentacao,ValorTelefonema,ValorAlimentacao,ValorTotal,Data,ContaId")] RelatorioDiario relatorioDiario)
         {
             if (id != relatorioDiario.Id)
-                return NotFound ();
-
-            RelatorioDiario relatorio = _context.RelatorioDiario
-                .Where (r => r.Id == id)
-                .Include (r => r.Conta.Reserva.Quarto)
-                .FirstOrDefault ();
-            if (relatorio == null)
                 return NotFound ();
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    relatorio.Conta.ValorTotal -= relatorioDiario.ValorTotal;
+                    Conta conta = _context.Conta
+                        .Where (c => c.Id == relatorioDiario.ContaId)
+                        .Include(c => c.Reserva.Quarto).FirstOrDefault ();
+                    if (conta == null)
+                        return NotFound ();
 
-                    relatorio.ValorTelefonema = relatorioDiario.Telefonema ? relatorioDiario.ValorTelefonema : 0;
-                    relatorio.ValorAlimentacao = relatorioDiario.Alimentacao ? relatorioDiario.ValorAlimentacao : 0;
+                    conta.ValorTotal -= relatorioDiario.ValorTotal;
+
+                    relatorioDiario.ValorTelefonema = relatorioDiario.Telefonema ? 15 : 0;
+                    relatorioDiario.ValorAlimentacao = relatorioDiario.Alimentacao ? 70 : 0;
 
                     IValor valor;
 
@@ -146,14 +139,15 @@ namespace Pousada.Controllers
                     else
                         valor = new Valor4 ();
 
-                    relatorio.ValorTotal = valor.CalcularValor (
-                        relatorio.Conta.Reserva.Quarto.ValorDiaria,
-                        relatorio.ValorTelefonema,
-                        relatorio.ValorAlimentacao);
+                    relatorioDiario.ValorTotal = valor.CalcularValor (
+                        conta.Reserva.Quarto.ValorDiaria,
+                        relatorioDiario.ValorTelefonema,
+                        relatorioDiario.ValorAlimentacao);
 
-                    relatorio.Conta.ValorTotal += relatorio.ValorTotal;
+                    conta.ValorTotal += relatorioDiario.ValorTotal;
 
-                    _context.Update (relatorio);
+                    _context.Update (relatorioDiario);
+                    _context.Update (conta);
                     await _context.SaveChangesAsync ();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -165,7 +159,7 @@ namespace Pousada.Controllers
                 }
                 return RedirectToAction (nameof (Details), new { id = relatorioDiario.Id });
             }
-            ViewData["ContaId"] = new SelectList (_context.Conta, "Id", "FormaPagamento", relatorioDiario.ContaId);
+            ViewData["ContaId"] = new SelectList (_context.Conta, "Id", "Id", relatorioDiario.ContaId);
             return View (relatorioDiario);
         }
 

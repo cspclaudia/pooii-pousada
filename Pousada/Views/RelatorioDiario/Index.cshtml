@@ -37,10 +37,9 @@
     </tbody>
 </table>
 
-<a type="button" class="btn btn-light" asp-controller="Conta" asp-action="Index">Lista de Contas</a>
-
 @foreach (var item in Model)
 {
-    <a type="button" class="btn btn-light" asp-controller="Conta" asp-action="Details" asp-route-id="@item.ContaId">Detalhes da Conta</a>
+    <a type="button" class="btn btn-dark" asp-controller="Conta" asp-action="Details" asp-route-id="@item.ContaId">Detalhes da Conta</a>
     break;
 }
+<a type="button" class="btn btn-light" asp-controller="Conta" asp-action="Index">Lista de Contas</a>

@@ -1,47 +1,44 @@
 @model Pousada.Models.Reserva
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Reserva";
 }
 
-<h1>Details</h1>
+<h1>Detalhes da Reserva</h1>
 
 <div>
-    <h4>Reserva</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DataEntrada)
+            Número do Quarto
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Quarto.Numero)
+        </dd>
+        <dt class="col-sm-2">
+            Hospede
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Hospede.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            Data da Entrada
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DataEntrada)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DataSaida)
+            Data da Saída
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DataSaida)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Hospede)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Hospede.Bairro)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Quarto)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Quarto.Descricao)
-        </dd>
     </dl>
 </div>
 <div>
-    <a type="button" class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
-    <a asp-action="Index">Lista de Reservas</a>
-</div><br>
+    <a type="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a type="button" class="btn btn-light" asp-action="Index">Lista de Reservas</a>
+</div><br><br>
 <div>
-    <a type="button" class="btn btn-dark" asp-controller="Conta" asp-action="Create" asp-route-id="@Model.Id">Abrir Conta</a>
-    <a type="button" class="btn btn-dark" asp-controller="Conta" asp-action="Details" asp-route-id="@Model.Id">Ver Conta</a>
-    <a type="button" class="btn btn-dark" asp-controller="RelatorioDiario" asp-action="Create">Gerar Relatório Diário</a>
+    <a type="button" class="btn btn-dark" asp-controller="Conta" asp-action="Details" asp-route-id="@Model.Id">Detalhes da Conta</a>
 </div>

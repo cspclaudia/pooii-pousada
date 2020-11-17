@@ -1,29 +1,21 @@
 @model IEnumerable<Pousada.Models.Reserva>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Reserva";
 }
 
-<h1>Index</h1>
+<h1>Lista de Reservas</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a type="button" class="btn btn-dark" asp-action="Create">Nova Reserva</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DataEntrada)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataSaida)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hospede)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quarto)
-            </th>
+            <th>Quarto</th>
+            <th>Hospede</th>
+            <th>Data de Entrada</th>
+            <th>Data de Saída</th>
             <th></th>
         </tr>
     </thead>
@@ -31,23 +23,25 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Quarto.Numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hospede.Nome)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.DataEntrada)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DataSaida)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hospede.Bairro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quarto.Descricao)
-            </td>
             <td>                
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a type="button" class="btn btn-dark" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                <a type="button" class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                <a type="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<a type="button" class="btn btn-light" asp-controller="Conta" asp-action="Index">Lista de Contas</a>

@@ -19,34 +19,27 @@ namespace Pousada.Controllers
             _context = context;
         }
 
-        // GET: Reserva
         public async Task<IActionResult> Index()
         {
             var context = _context.Reserva.Include(r => r.Hospede).Include(r => r.Quarto);
             return View(await context.ToListAsync());
         }
 
-        // GET: Reserva/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var reserva = await _context.Reserva
                 .Include(r => r.Hospede)
                 .Include(r => r.Quarto)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (reserva == null)
-            {
                 return NotFound();
-            }
 
             return View(reserva);
         }
 
-        // GET: Reserva/Create
         public IActionResult Create()
         {
             ViewData["HospedeId"] = new SelectList(_context.Hospede, "Id", "Nome");
@@ -54,9 +47,6 @@ namespace Pousada.Controllers
             return View();
         }
 
-        // POST: Reserva/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,DataEntrada,DataSaida,HospedeId,QuartoId")] Reserva reserva)
@@ -65,13 +55,6 @@ namespace Pousada.Controllers
             {
                 _context.Add(reserva);
                 await _context.SaveChangesAsync();
-                // Conta conta = new Conta();
-                // conta.ReservaId = reserva.Id;
-                // conta.ValorTotal = _context.Quarto.Where(q => q.Id == reserva.QuartoId).Select(v => v.ValorDiaria).FirstOrDefault();
-                // conta.FormaPagamento = "Cartão";
-                // conta.StatusPagamento = "Pendente";
-                // _context.Add(conta);
-                // await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Create), "Conta");
             }
             ViewData["HospedeId"] = new SelectList(_context.Hospede, "Id", "Bairro", reserva.HospedeId);
@@ -79,35 +62,25 @@ namespace Pousada.Controllers
             return View(reserva);
         }
 
-        // GET: Reserva/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var reserva = await _context.Reserva.FindAsync(id);
             if (reserva == null)
-            {
                 return NotFound();
-            }
-            ViewData["HospedeId"] = new SelectList(_context.Hospede, "Id", "Bairro", reserva.HospedeId);
-            ViewData["QuartoId"] = new SelectList(_context.Quarto, "Id", "Descricao", reserva.QuartoId);
+                
+            ViewData["QuartoId"] = new SelectList(_context.Quarto, "Id", "Numero", reserva.QuartoId);
             return View(reserva);
         }
 
-        // POST: Reserva/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,DataEntrada,DataSaida,HospedeId,QuartoId")] Reserva reserva)
         {
             if (id != reserva.Id)
-            {
                 return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
@@ -119,42 +92,32 @@ namespace Pousada.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!ReservaExists(reserva.Id))
-                    {
                         return NotFound();
-                    }
                     else
-                    {
                         throw;
-                    }
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["HospedeId"] = new SelectList(_context.Hospede, "Id", "Bairro", reserva.HospedeId);
-            ViewData["QuartoId"] = new SelectList(_context.Quarto, "Id", "Descricao", reserva.QuartoId);
+            ViewData["QuartoId"] = new SelectList(_context.Quarto, "Id", "Numero", reserva.QuartoId);
             return View(reserva);
         }
 
-        // GET: Reserva/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var reserva = await _context.Reserva
                 .Include(r => r.Hospede)
                 .Include(r => r.Quarto)
                 .FirstOrDefaultAsync(m => m.Id == id);
+                
             if (reserva == null)
-            {
                 return NotFound();
-            }
 
             return View(reserva);
         }
 
-        // POST: Reserva/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
