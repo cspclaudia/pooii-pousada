@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pousada.Data;
 using Pousada.Interfaces;
@@ -71,7 +68,12 @@ namespace Pousada.Controllers
             {
                 Dinheiro dinheiro = new Dinheiro ();
                 IPagamento cartao = new Cartao (dinheiro);
-                conta.StatusPagamento = cartao.RealizarPagamento ();
+
+                if (conta.FormaPagamento == "Cartão")
+                    conta.StatusPagamento = cartao.RealizarPagamento ();
+                else
+                    conta.StatusPagamento = dinheiro.RealizarPagamento ();
+
                 _context.Update (conta);
                 await _context.SaveChangesAsync ();
             }
