@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -56,41 +55,43 @@ namespace Pousada.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create ([Bind ("Telefonema,Alimentacao,ContaId")] RelatorioDiario relatorioDiario)
+        public async Task<IActionResult> Create ([Bind ("Telefonema,Alimentacao,Data,ContaId")] RelatorioDiario relatorioDiario)
         {
-            relatorioDiario.ValorTelefonema = relatorioDiario.Telefonema ? 15 : 0;
-            relatorioDiario.ValorAlimentacao = relatorioDiario.Alimentacao ? 70 : 0;
-
             Conta conta = _context.Conta
                 .Where (conta => conta.Id == relatorioDiario.ContaId)
                 .Include (conta => conta.Reserva.Quarto).FirstOrDefault ();
             if (conta == null)
                 return NotFound ();
 
-            IValor valor;
+            if (DateTime.Compare(relatorioDiario.Data, conta.Reserva.DataEntrada) >= 0 && DateTime.Compare(relatorioDiario.Data, conta.Reserva.DataEntrada) <= 0)
+            {
+                relatorioDiario.ValorTelefonema = relatorioDiario.Telefonema ? 15 : 0;
+                relatorioDiario.ValorAlimentacao = relatorioDiario.Alimentacao ? 70 : 0;
 
-            if (!relatorioDiario.Telefonema && !relatorioDiario.Alimentacao)
-                valor = new Valor1 ();
-            else if (relatorioDiario.Telefonema && !relatorioDiario.Alimentacao)
-                valor = new Valor2 ();
-            else if (!relatorioDiario.Telefonema && relatorioDiario.Alimentacao)
-                valor = new Valor3 ();
-            else
-                valor = new Valor4 ();
+                IValor valor;
 
-            relatorioDiario.ValorTotal = valor.CalcularValor (
-                conta.Reserva.Quarto.ValorDiaria,
-                relatorioDiario.ValorTelefonema,
-                relatorioDiario.ValorAlimentacao);
+                if (!relatorioDiario.Telefonema && !relatorioDiario.Alimentacao)
+                    valor = new Valor1 ();
+                else if (relatorioDiario.Telefonema && !relatorioDiario.Alimentacao)
+                    valor = new Valor2 ();
+                else if (!relatorioDiario.Telefonema && relatorioDiario.Alimentacao)
+                    valor = new Valor3 ();
+                else
+                    valor = new Valor4 ();
 
-            relatorioDiario.Data = DateTime.Now;
-            _context.Add (relatorioDiario);
+                relatorioDiario.ValorTotal = valor.CalcularValor (
+                    conta.Reserva.Quarto.ValorDiaria,
+                    relatorioDiario.ValorTelefonema,
+                    relatorioDiario.ValorAlimentacao);
 
-            conta.ValorTotal += relatorioDiario.ValorTotal;
-            _context.Update (conta);
-
-            await _context.SaveChangesAsync ();
-            return RedirectToAction (nameof (Index), new { id = conta.Id });
+                conta.ValorTotal += relatorioDiario.ValorTotal;
+                _context.Update (conta);
+                _context.Add (relatorioDiario);
+                await _context.SaveChangesAsync ();
+                return RedirectToAction (nameof (Index), new { id = conta.Id });
+            }
+            ViewData["ContaId"] = new SelectList (_context.Conta, "Id", "Id", relatorioDiario.ContaId);
+            return View (relatorioDiario);
         }
 
         public async Task<IActionResult> Edit (int? id)
@@ -102,7 +103,7 @@ namespace Pousada.Controllers
             if (relatorioDiario == null)
                 return NotFound ();
 
-            ViewData["ContaId"] = new SelectList (_context.Conta, "Id", "Id", relatorioDiario.ContaId);
+            ViewData["ContaId"] = new SelectList (_context.Conta, "Id", "Id");
             return View (relatorioDiario);
         }
 
@@ -119,7 +120,7 @@ namespace Pousada.Controllers
                 {
                     Conta conta = _context.Conta
                         .Where (c => c.Id == relatorioDiario.ContaId)
-                        .Include(c => c.Reserva.Quarto).FirstOrDefault ();
+                        .Include (c => c.Reserva.Quarto).FirstOrDefault ();
                     if (conta == null)
                         return NotFound ();
 

@@ -16,7 +16,7 @@ namespace Pousada.Models
         public double ValorTotal { get; set; }
 
         [Required]
-        [DataType (DataType.DateTime)]
+        [DataType (DataType.Date)]
         public DateTime Data { get; set; }
 
         [Required]
