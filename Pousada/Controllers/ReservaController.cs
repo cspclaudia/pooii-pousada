@@ -42,7 +42,7 @@ namespace Pousada.Controllers
         public IActionResult Create ()
         {
             ViewData["HospedeId"] = new SelectList (_context.Hospede, "Id", "Nome");
-            ViewData["QuartoId"] = new SelectList (_context.Quarto, "Id", "Numero");
+            ViewData["QuartoId"] = new SelectList (_context.Quarto.Where (q => q.Disponivel == true), "Id", "Numero");
             return View ();
         }
 
@@ -52,6 +52,9 @@ namespace Pousada.Controllers
         {
             if (ModelState.IsValid && DateTime.Compare (reserva.DataEntrada, DateTime.Today) >= 0 && DateTime.Compare (reserva.DataSaida, reserva.DataEntrada) > 0)
             {
+                Quarto quarto = _context.Quarto.Where (q => q.Id == reserva.QuartoId).FirstOrDefault ();
+                quarto.Disponivel = false;
+                _context.Update (quarto);
                 _context.Add (reserva);
                 await _context.SaveChangesAsync ();
                 return RedirectToAction (nameof (Create), "Conta");
@@ -59,6 +62,12 @@ namespace Pousada.Controllers
             ViewData["HospedeId"] = new SelectList (_context.Hospede, "Id", "Nome", reserva.HospedeId);
             ViewData["QuartoId"] = new SelectList (_context.Quarto, "Id", "Numero", reserva.QuartoId);
             return View (reserva);
+        }
+
+        public async Task<JsonResult> GetRoom (int id)
+        {
+            var quarto = await _context.Quarto.Where (q => q.Id == id).FirstOrDefaultAsync ();
+            return new JsonResult (quarto);
         }
 
         public async Task<IActionResult> Edit (int? id)
