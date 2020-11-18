@@ -9,12 +9,16 @@
 <form asp-action="Index" method="get">
     <div class="row">
         <div class="col-auto">
-            <input class="form-control mb-2" type="text" name="SearchString" placeholder="Nome ou RG">
+            <input class="form-control mb-2" type="text" name="SearchString" placeholder="Nome">
+        </div>
+        <div class="col-auto">
+            <input class="form-control mb-2" type="date" name="SearchDate" placeholder="Data de Nascimento">
         </div>
         <div class="col-auto">
             <input class="btn btn-dark" type="submit" value="Pesquisar" /> |
             <a type="button" class="btn btn-dark" asp-action="Index">Ver Todos</a> |
-            <a type="button" class="btn btn-dark" asp-action="Create">Cadastrar Hospede</a>
+            <a type="button" class="btn btn-dark" asp-action="Create">Cadastrar Hospede</a> |
+            <a type="button" class="btn btn-dark" asp-controller="Reserva" asp-action="Create">Nova Reserva</a>
         </div>
     </div>
 </form>

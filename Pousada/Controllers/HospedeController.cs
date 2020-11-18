@@ -17,12 +17,14 @@ namespace Pousada.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index (string searchString)
+        public async Task<IActionResult> Index (string searchString, DateTime searchDate)
         {
-            var hospedes = _context.Hospede.Select(h => h);
+            var hospedes = _context.Hospede.Select (h => h);
 
             if (!String.IsNullOrEmpty (searchString))
-                hospedes = hospedes.Where (hospede => hospede.Nome.Contains (searchString) || hospede.RG.Contains (searchString));
+                hospedes = hospedes.Where (hospede => hospede.Nome.Contains (searchString));
+            else if (searchDate != default(DateTime) || searchDate != DateTime.MinValue)
+                hospedes = hospedes.Where (hospede => hospede.DataNascimento.Equals (searchDate));
 
             return View (await hospedes.ToListAsync ());
         }
@@ -66,7 +68,7 @@ namespace Pousada.Controllers
             var hospede = await _context.Hospede.FindAsync (id);
             if (hospede == null)
                 return NotFound ();
-                
+
             return View (hospede);
         }
 
