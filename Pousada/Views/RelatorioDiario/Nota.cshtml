@@ -1,0 +1,61 @@
+@model IEnumerable<Pousada.Models.RelatorioDiario>
+
+@{
+    ViewData["Title"] = "Nota";
+}
+
+<h1>Nota</h1>
+<hr />
+
+@foreach (var item in Model) {
+    <h3 class="font-weight-light">@Html.DisplayFor(modelItem => item.Conta.Reserva.Hospede.Nome)</h3>
+    <h5 class="font-weight-light">Quarto: @Html.DisplayFor(modelItem => item.Conta.Reserva.Quarto.Numero)</h5>
+    break;
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Período</th>
+            <th>Valor da Diária</th>
+            <th>Valor do Telefonema</th>
+            <th>Valor da Alimentação</th>
+            <th>Valor Total do Período</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInicial) a @Html.DisplayFor(modelItem => item.DataFinal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Conta.Reserva.Quarto.ValorDiaria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorTelefonema)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorAlimentacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorTotal)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<hr />
+
+@foreach (var item in Model) {
+<h4 class="text-right">Total Geral: R$@Html.DisplayFor(modelItem => item.Conta.ValorTotal)</h4>
+<h5 class="text-right font-weight-light">(Incluindo 5% de taxa de serviço)</h5>
+break;
+}
+
+@foreach (var item in Model)
+{
+    <a type="button" class="btn btn-dark" asp-controller="Conta" asp-action="Details" asp-route-id="@item.Conta.ReservaId">Detalhes da Conta</a>
+    break;
+}
+<a type="button" class="btn btn-light" asp-controller="Conta" asp-action="Index">Lista de Contas</a>

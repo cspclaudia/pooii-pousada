@@ -10,25 +10,37 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-3">
-            Número do Quarto:
+            Número do Quarto
         </dt>
         <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.Reserva.Quarto.Numero)
         </dd>
         <dt class = "col-sm-3">
-            Valor Total:
+            Hospede
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Reserva.Hospede.Nome)
+        </dd>
+        <dt class = "col-sm-3">
+            Período da Reserva
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Reserva.DataEntrada) a @Html.DisplayFor(model => model.Reserva.DataSaida)
+        </dd>
+        <dt class = "col-sm-3">
+            Valor Total
         </dt>
         <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.ValorTotal)
         </dd>
         <dt class = "col-sm-3">
-            Forma de Pagamento:
+            Forma de Pagamento
         </dt>
         <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.FormaPagamento)
         </dd>
         <dt class = "col-sm-3">
-            Status do Pagamento:
+            Status do Pagamento
         </dt>
         <dd class = "col-sm-9">
             @Html.DisplayFor(model => model.StatusPagamento)
@@ -49,6 +61,9 @@
     
     @if (Model.StatusPagamento != "Aprovado") {
         <a type="button" class="btn btn-dark" asp-controller="RelatorioDiario" asp-action="Create" asp-route-id="@Model.Id">Gerar Relatório Diário</a>
-        <a type="button" class="btn btn-dark" asp-action="Pay" asp-route-id="@Model.Id">Cobrar</a>
+        <a type="button" class="btn btn-dark" asp-action="Close" asp-route-id="@Model.Id">Fechar Conta</a>
+    }
+    else{
+        <a type="button" class="btn btn-dark" asp-controller="RelatorioDiario" asp-action="Nota" asp-route-id="@Model.Id">Nota</a>
     }
 </div>

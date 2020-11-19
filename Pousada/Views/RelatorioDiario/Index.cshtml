@@ -10,8 +10,9 @@
     <thead>
         <tr>
             <th>Número do Quarto</th>
-            <th>Data</th>
-            <th>Valor Total do Dia</th>
+            <th>Hospede</th>
+            <th>Período</th>
+            <th>Valor Total do Período</th>
             <th></th>
         </tr>
     </thead>
@@ -22,14 +23,17 @@
                 @Html.DisplayFor(modelItem => item.Conta.Reserva.Quarto.Numero)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Data)
+                @Html.DisplayFor(modelItem => item.Conta.Reserva.Hospede.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInicial) a @Html.DisplayFor(modelItem => item.DataFinal)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ValorTotal)
             </td>
             <td>
                 <a type="button" class="btn btn-dark" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
-                <a type="button" class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                @* <a type="button" class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Excluir</a> *@
                 <a type="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
             </td>
         </tr>
@@ -39,7 +43,7 @@
 
 @foreach (var item in Model)
 {
-    <a type="button" class="btn btn-dark" asp-controller="Conta" asp-action="Details" asp-route-id="@item.ContaId">Detalhes da Conta</a>
+    <a type="button" class="btn btn-dark" asp-controller="Conta" asp-action="Details" asp-route-id="@item.Conta.ReservaId">Detalhes da Conta</a>
     break;
 }
 <a type="button" class="btn btn-light" asp-controller="Conta" asp-action="Index">Lista de Contas</a>

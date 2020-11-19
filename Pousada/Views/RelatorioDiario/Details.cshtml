@@ -16,10 +16,16 @@
             @Html.DisplayFor(model => model.Conta.Reserva.Quarto.Numero)
         </dd class>
         <dt class="col-sm-3">
-            Data
+            Hospede
         </dt>
         <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.Data)
+            @Html.DisplayFor(model => model.Conta.Reserva.Hospede.Nome)
+        </dd class>
+        <dt class="col-sm-3">
+            Período
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.DataInicial) a @Html.DisplayFor(model => model.DataFinal)
         </dd>
         <dt class="col-sm-3">
             Telefonema
@@ -32,6 +38,12 @@
         </dt>
         <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Alimentacao)
+        </dd>
+        <dt class="col-sm-3">
+            Valor da Diária
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Conta.Reserva.Quarto.ValorDiaria)
         </dd>
         <dt class="col-sm-3">
             Valor do Telefonema

@@ -101,7 +101,8 @@ namespace Pousada.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ValorTotal = table.Column<double>(type: "double(18, 2)", nullable: false),
-                    Data = table.Column<DateTime>(nullable: false),
+                    DataInicial = table.Column<DateTime>(nullable: false),
+                    DataFinal = table.Column<DateTime>(nullable: false),
                     Telefonema = table.Column<bool>(nullable: false),
                     Alimentacao = table.Column<bool>(nullable: false),
                     ValorTelefonema = table.Column<double>(type: "double(18, 2)", nullable: false),

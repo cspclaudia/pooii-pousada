@@ -50,14 +50,23 @@ namespace Pousada.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create ([Bind ("Id,DataEntrada,DataSaida,HospedeId,QuartoId")] Reserva reserva)
         {
-            if (ModelState.IsValid && DateTime.Compare (reserva.DataEntrada, DateTime.Today) >= 0 && DateTime.Compare (reserva.DataSaida, reserva.DataEntrada) > 0)
+            if (ModelState.IsValid)
             {
-                Quarto quarto = _context.Quarto.Where (q => q.Id == reserva.QuartoId).FirstOrDefault ();
-                quarto.Disponivel = false;
-                _context.Update (quarto);
-                _context.Add (reserva);
-                await _context.SaveChangesAsync ();
-                return RedirectToAction (nameof (Create), "Conta");
+                Reserva context = _context.Reserva
+                    .Where (r => r.DataEntrada == reserva.DataEntrada || r.DataSaida == reserva.DataSaida &&
+                        r.QuartoId == reserva.QuartoId).FirstOrDefault ();
+
+                if (context == null &&
+                    DateTime.Compare (reserva.DataEntrada, DateTime.Today) >= 0 &&
+                    DateTime.Compare (reserva.DataSaida, reserva.DataEntrada) > 0)
+                {
+                    Quarto quarto = _context.Quarto.Where (q => q.Id == reserva.QuartoId).FirstOrDefault ();
+                    quarto.Disponivel = false;
+                    _context.Update (quarto);
+                    _context.Add (reserva);
+                    await _context.SaveChangesAsync ();
+                    return RedirectToAction (nameof (Create), "Conta");
+                }
             }
             ViewData["HospedeId"] = new SelectList (_context.Hospede, "Id", "Nome", reserva.HospedeId);
             ViewData["QuartoId"] = new SelectList (_context.Quarto, "Id", "Numero", reserva.QuartoId);
@@ -131,6 +140,14 @@ namespace Pousada.Controllers
         public async Task<IActionResult> DeleteConfirmed (int id)
         {
             var reserva = await _context.Reserva.FindAsync (id);
+
+            Quarto quarto = _context.Quarto
+                .Where (q => q.Id == reserva.QuartoId).FirstOrDefault ();
+            if (quarto == null)
+                return NotFound ();
+
+            quarto.Disponivel = true;
+            _context.Update (quarto);
             _context.Reserva.Remove (reserva);
             await _context.SaveChangesAsync ();
             return RedirectToAction (nameof (Index));

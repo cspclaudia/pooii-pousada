@@ -19,7 +19,9 @@ namespace Pousada.Controllers
 
         public async Task<IActionResult> Index ()
         {
-            var context = _context.Conta.Include (c => c.Reserva.Quarto);
+            var context = _context.Conta
+                .Include (c => c.Reserva.Quarto)
+                .Include (c => c.Reserva.Hospede);
             return View (await context.ToListAsync ());
         }
 
@@ -30,6 +32,7 @@ namespace Pousada.Controllers
 
             var conta = await _context.Conta
                 .Include (c => c.Reserva.Quarto)
+                .Include (c => c.Reserva.Hospede)
                 .FirstOrDefaultAsync (m => m.ReservaId == id);
 
             if (conta == null)
@@ -52,20 +55,24 @@ namespace Pousada.Controllers
             conta.StatusPagamento = "Pendente";
             _context.Add (conta);
             await _context.SaveChangesAsync ();
-            return RedirectToAction (nameof (Index));
+            return RedirectToAction (nameof (Index), "Reserva");
         }
 
-        public async Task<IActionResult> Pay (int? id)
+        public async Task<IActionResult> Close (int? id)
         {
             if (id == null)
                 return NotFound ();
 
-            var conta = await _context.Conta.FindAsync (id);
+            var conta = await _context.Conta
+                .Where (c => c.Id == id).Include (c => c.Reserva.Quarto).FirstOrDefaultAsync ();
             if (conta == null)
                 return NotFound ();
 
             try
             {
+                double taxa = conta.ValorTotal * 0.05;
+                conta.ValorTotal = conta.ValorTotal + taxa;
+
                 Dinheiro dinheiro = new Dinheiro ();
                 IPagamento cartao = new Cartao (dinheiro);
 
@@ -73,6 +80,11 @@ namespace Pousada.Controllers
                     conta.StatusPagamento = cartao.RealizarPagamento ();
                 else
                     conta.StatusPagamento = dinheiro.RealizarPagamento ();
+
+                if (conta.StatusPagamento == "Aprovado")
+                    conta.Reserva.Quarto.Disponivel = true;
+                else
+                    conta.ValorTotal = conta.ValorTotal - taxa;
 
                 _context.Update (conta);
                 await _context.SaveChangesAsync ();
@@ -84,7 +96,7 @@ namespace Pousada.Controllers
                 else
                     throw;
             }
-            return RedirectToAction (nameof (Details), new { id = conta.Id });
+            return RedirectToAction (nameof (Details), new { id = conta.ReservaId });
         }
 
         public async Task<IActionResult> Edit (int? id)

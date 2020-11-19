@@ -9,7 +9,7 @@ using Pousada.Data;
 namespace Pousada.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20201117204204_InitialCreate")]
+    [Migration("20201119032519_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -127,7 +127,10 @@ namespace Pousada.Migrations
                     b.Property<int>("ContaId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Data")
+                    b.Property<DateTime>("DataFinal")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataInicial")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Telefonema")

@@ -10,6 +10,7 @@
     <thead>
         <tr>
             <th>Número do Quarto</th>
+            <th>Hospede</th>
             <th>Valor Total</th>
             <th>Forma de Pagamento</th>
             <th>Status do Pagamento</th>
@@ -23,6 +24,9 @@
                 @Html.DisplayFor(modelItem => item.Reserva.Quarto.Numero)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Reserva.Hospede.Nome)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ValorTotal)
             </td>
             <td>
@@ -33,7 +37,7 @@
             </td>
             <td>
                 <a type="button" class="btn btn-dark" asp-action="Details" asp-route-id="@item.ReservaId">Detalhes</a>
-                <a type="button" class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                @* <a type="button" class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Excluir</a> *@
                 @if (item.StatusPagamento != "Aprovado") {
                     <a type="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
                 }

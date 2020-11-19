@@ -34,8 +34,10 @@
             @Html.DisplayFor(model => model.DataSaida)
         </dd>
     </dl>
-</div>
-<div>
-    <a type="button" class="btn btn-dark" asp-action="Delete" asp-route-id="@Model.Id">Confirmar</a> |
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Confirmar" class="btn btn-dark" /> |
     <a type="button" class="btn btn-light" asp-action="Index">Lista de Reservas</a>
+    </form>
 </div>

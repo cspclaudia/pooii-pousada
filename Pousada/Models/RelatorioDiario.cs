@@ -17,7 +17,11 @@ namespace Pousada.Models
 
         [Required]
         [DataType (DataType.Date)]
-        public DateTime Data { get; set; }
+        public DateTime DataInicial { get; set; }
+
+        [Required]
+        [DataType (DataType.Date)]
+        public DateTime DataFinal { get; set; }
 
         [Required]
         public bool Telefonema { get; set; }
@@ -33,7 +37,7 @@ namespace Pousada.Models
         [Column (TypeName = "double(18, 2)")]
         public double ValorAlimentacao { get; set; }
 
-        [Required] 
+        [Required]
         public int ContaId { get; set; }
 
         [ForeignKey ("ContaId")]

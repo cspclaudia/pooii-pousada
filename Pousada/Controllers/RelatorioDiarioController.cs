@@ -26,6 +26,7 @@ namespace Pousada.Controllers
 
             var context = _context.RelatorioDiario
                 .Include (r => r.Conta.Reserva.Quarto)
+                .Include (r => r.Conta.Reserva.Hospede)
                 .Where (m => m.ContaId == id);
             if (context == null)
                 return NotFound ();
@@ -40,11 +41,27 @@ namespace Pousada.Controllers
 
             var relatorioDiario = await _context.RelatorioDiario
                 .Include (r => r.Conta.Reserva.Quarto)
+                .Include (r => r.Conta.Reserva.Hospede)
                 .FirstOrDefaultAsync (m => m.Id == id);
             if (relatorioDiario == null)
                 return NotFound ();
 
             return View (relatorioDiario);
+        }
+
+        public async Task<IActionResult> Nota (int? id)
+        {
+            if (id == null)
+                return NotFound ();
+
+            var context = _context.RelatorioDiario
+                .Include (r => r.Conta.Reserva.Quarto)
+                .Include (r => r.Conta.Reserva.Hospede)
+                .Where (m => m.ContaId == id);
+            if (context == null)
+                return NotFound ();
+
+            return View (await context.ToListAsync ());
         }
 
         public IActionResult Create (int? id)
@@ -55,7 +72,7 @@ namespace Pousada.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create ([Bind ("Telefonema,Alimentacao,Data,ContaId")] RelatorioDiario relatorioDiario)
+        public async Task<IActionResult> Create ([Bind ("Telefonema,Alimentacao,DataInicial,ContaId")] RelatorioDiario relatorioDiario)
         {
             Conta conta = _context.Conta
                 .Where (conta => conta.Id == relatorioDiario.ContaId)
@@ -63,10 +80,15 @@ namespace Pousada.Controllers
             if (conta == null)
                 return NotFound ();
 
-            var context = _context.RelatorioDiario
-                .Where (m => m.Data == relatorioDiario.Data).FirstOrDefault ();
+            relatorioDiario.DataFinal = relatorioDiario.DataInicial.AddDays (1);
 
-            if (context == null && DateTime.Compare (relatorioDiario.Data, conta.Reserva.DataEntrada) >= 0 && DateTime.Compare (relatorioDiario.Data, conta.Reserva.DataSaida) <= 0)
+            var context = _context.RelatorioDiario
+                .Where (r => r.DataInicial == relatorioDiario.DataInicial &&
+                    r.Conta.Reserva.Quarto.Numero == conta.Reserva.Quarto.Numero).FirstOrDefault ();
+
+            if (context == null &&
+                DateTime.Compare (relatorioDiario.DataInicial, conta.Reserva.DataEntrada) >= 0 &&
+                DateTime.Compare (relatorioDiario.DataInicial, conta.Reserva.DataSaida) < 0)
             {
                 relatorioDiario.ValorTelefonema = relatorioDiario.Telefonema ? 15 : 0;
                 relatorioDiario.ValorAlimentacao = relatorioDiario.Alimentacao ? 70 : 0;
@@ -112,7 +134,7 @@ namespace Pousada.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit (int id, [Bind ("Id,Telefonema,Alimentacao,ValorTelefonema,ValorAlimentacao,ValorTotal,Data,ContaId")] RelatorioDiario relatorioDiario)
+        public async Task<IActionResult> Edit (int id, [Bind ("Id,Telefonema,Alimentacao,ValorTelefonema,ValorAlimentacao,ValorTotal,DataInicial,DataFinal,ContaId")] RelatorioDiario relatorioDiario)
         {
             if (id != relatorioDiario.Id)
                 return NotFound ();
