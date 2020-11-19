@@ -30,10 +30,10 @@ namespace Pousada.Controllers
             if (id == null)
                 return NotFound ();
 
-            var conta = await _context.Conta
+            Conta conta = await _context.Conta
                 .Include (c => c.Reserva.Quarto)
                 .Include (c => c.Reserva.Hospede)
-                .FirstOrDefaultAsync (m => m.ReservaId == id);
+                .FirstOrDefaultAsync (c => c.ReservaId == id);
 
             if (conta == null)
                 return NotFound ();
@@ -63,7 +63,7 @@ namespace Pousada.Controllers
             if (id == null)
                 return NotFound ();
 
-            var conta = await _context.Conta
+            Conta conta = await _context.Conta
                 .Where (c => c.Id == id).Include (c => c.Reserva.Quarto).FirstOrDefaultAsync ();
             if (conta == null)
                 return NotFound ();
@@ -104,7 +104,7 @@ namespace Pousada.Controllers
             if (id == null)
                 return NotFound ();
 
-            var conta = await _context.Conta.FindAsync (id);
+            Conta conta = await _context.Conta.FindAsync (id);
             if (conta == null)
                 return NotFound ();
 
@@ -120,7 +120,7 @@ namespace Pousada.Controllers
 
             try
             {
-                var _conta = await _context.Conta.FindAsync (id);
+                Conta _conta = await _context.Conta.FindAsync (id);
                 _conta.FormaPagamento = conta.FormaPagamento;
                 _context.Update (_conta);
                 await _context.SaveChangesAsync ();
@@ -140,9 +140,9 @@ namespace Pousada.Controllers
             if (id == null)
                 return NotFound ();
 
-            var conta = await _context.Conta
+            Conta conta = await _context.Conta
                 .Include (c => c.Reserva.Quarto)
-                .FirstOrDefaultAsync (m => m.Id == id);
+                .FirstOrDefaultAsync (c => c.Id == id);
             if (conta == null)
                 return NotFound ();
 
@@ -153,7 +153,7 @@ namespace Pousada.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed (int id)
         {
-            var conta = await _context.Conta.FindAsync (id);
+            Conta conta = await _context.Conta.FindAsync (id);
             _context.Conta.Remove (conta);
             await _context.SaveChangesAsync ();
             return RedirectToAction (nameof (Index));

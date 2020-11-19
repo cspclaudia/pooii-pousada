@@ -31,8 +31,8 @@ namespace Pousada.Controllers
             if (id == null)
                 return NotFound ();
 
-            var quarto = await _context.Quarto
-                .FirstOrDefaultAsync (m => m.Id == id);
+            Quarto quarto = await _context.Quarto
+                .FirstOrDefaultAsync (q => q.Id == id);
             if (quarto == null)
                 return NotFound ();
 
@@ -77,7 +77,7 @@ namespace Pousada.Controllers
             if (id == null)
                 return NotFound ();
 
-            var quarto = await _context.Quarto.FindAsync (id);
+            Quarto quarto = await _context.Quarto.FindAsync (id);
             if (quarto == null)
                 return NotFound ();
 
@@ -115,8 +115,8 @@ namespace Pousada.Controllers
             if (id == null)
                 return NotFound ();
 
-            var quarto = await _context.Quarto
-                .FirstOrDefaultAsync (m => m.Id == id);
+            Quarto quarto = await _context.Quarto
+                .FirstOrDefaultAsync (q => q.Id == id);
             if (quarto == null)
                 return NotFound ();
 
@@ -127,7 +127,7 @@ namespace Pousada.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed (int id)
         {
-            var quarto = await _context.Quarto.FindAsync (id);
+            Quarto quarto = await _context.Quarto.FindAsync (id);
             _context.Quarto.Remove (quarto);
             await _context.SaveChangesAsync ();
             return RedirectToAction (nameof (Index));

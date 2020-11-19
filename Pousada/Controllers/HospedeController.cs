@@ -22,9 +22,9 @@ namespace Pousada.Controllers
             var hospedes = _context.Hospede.Select (h => h);
 
             if (!String.IsNullOrEmpty (searchString))
-                hospedes = hospedes.Where (hospede => hospede.Nome.Contains (searchString));
+                hospedes = hospedes.Where (h => h.Nome.Contains (searchString));
             else if (searchDate != default(DateTime) || searchDate != DateTime.MinValue)
-                hospedes = hospedes.Where (hospede => hospede.DataNascimento.Equals (searchDate));
+                hospedes = hospedes.Where (h => h.DataNascimento.Equals (searchDate));
 
             return View (await hospedes.ToListAsync ());
         }
@@ -34,8 +34,8 @@ namespace Pousada.Controllers
             if (id == null)
                 return NotFound ();
 
-            var hospede = await _context.Hospede
-                .FirstOrDefaultAsync (m => m.Id == id);
+            Hospede hospede = await _context.Hospede
+                .FirstOrDefaultAsync (h => h.Id == id);
             if (hospede == null)
                 return NotFound ();
 
@@ -65,7 +65,7 @@ namespace Pousada.Controllers
             if (id == null)
                 return NotFound ();
 
-            var hospede = await _context.Hospede.FindAsync (id);
+            Hospede hospede = await _context.Hospede.FindAsync (id);
             if (hospede == null)
                 return NotFound ();
 
@@ -103,8 +103,8 @@ namespace Pousada.Controllers
             if (id == null)
                 return NotFound ();
 
-            var hospede = await _context.Hospede
-                .FirstOrDefaultAsync (m => m.Id == id);
+            Hospede hospede = await _context.Hospede
+                .FirstOrDefaultAsync (h => h.Id == id);
             if (hospede == null)
                 return NotFound ();
 
@@ -115,7 +115,7 @@ namespace Pousada.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed (int id)
         {
-            var hospede = await _context.Hospede.FindAsync (id);
+            Hospede hospede = await _context.Hospede.FindAsync (id);
             _context.Hospede.Remove (hospede);
             await _context.SaveChangesAsync ();
             return RedirectToAction (nameof (Index));

@@ -27,7 +27,7 @@ namespace Pousada.Controllers
             var context = _context.RelatorioDiario
                 .Include (r => r.Conta.Reserva.Quarto)
                 .Include (r => r.Conta.Reserva.Hospede)
-                .Where (m => m.ContaId == id);
+                .Where (r => r.ContaId == id);
             if (context == null)
                 return NotFound ();
 
@@ -39,10 +39,10 @@ namespace Pousada.Controllers
             if (id == null)
                 return NotFound ();
 
-            var relatorioDiario = await _context.RelatorioDiario
+            RelatorioDiario relatorioDiario = await _context.RelatorioDiario
                 .Include (r => r.Conta.Reserva.Quarto)
                 .Include (r => r.Conta.Reserva.Hospede)
-                .FirstOrDefaultAsync (m => m.Id == id);
+                .FirstOrDefaultAsync (r => r.Id == id);
             if (relatorioDiario == null)
                 return NotFound ();
 
@@ -57,7 +57,7 @@ namespace Pousada.Controllers
             var context = _context.RelatorioDiario
                 .Include (r => r.Conta.Reserva.Quarto)
                 .Include (r => r.Conta.Reserva.Hospede)
-                .Where (m => m.ContaId == id);
+                .Where (r => r.ContaId == id);
             if (context == null)
                 return NotFound ();
 
@@ -75,8 +75,8 @@ namespace Pousada.Controllers
         public async Task<IActionResult> Create ([Bind ("Telefonema,Alimentacao,DataInicial,ContaId")] RelatorioDiario relatorioDiario)
         {
             Conta conta = _context.Conta
-                .Where (conta => conta.Id == relatorioDiario.ContaId)
-                .Include (conta => conta.Reserva.Quarto).FirstOrDefault ();
+                .Where (c => c.Id == relatorioDiario.ContaId)
+                .Include (c => c.Reserva.Quarto).FirstOrDefault ();
             if (conta == null)
                 return NotFound ();
 
@@ -124,7 +124,7 @@ namespace Pousada.Controllers
             if (id == null)
                 return NotFound ();
 
-            var relatorioDiario = await _context.RelatorioDiario.FindAsync (id);
+            RelatorioDiario relatorioDiario = await _context.RelatorioDiario.FindAsync (id);
             if (relatorioDiario == null)
                 return NotFound ();
 
@@ -194,9 +194,9 @@ namespace Pousada.Controllers
             if (id == null)
                 return NotFound ();
 
-            var relatorioDiario = await _context.RelatorioDiario
+            RelatorioDiario relatorioDiario = await _context.RelatorioDiario
                 .Include (r => r.Conta.Reserva.Quarto)
-                .FirstOrDefaultAsync (m => m.Id == id);
+                .FirstOrDefaultAsync (r => r.Id == id);
             if (relatorioDiario == null)
                 return NotFound ();
 
@@ -207,10 +207,10 @@ namespace Pousada.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed (int id)
         {
-            var relatorioDiario = await _context.RelatorioDiario.FindAsync (id);
+            RelatorioDiario relatorioDiario = await _context.RelatorioDiario.FindAsync (id);
 
             Conta conta = _context.Conta
-                .Where (conta => conta.Id == relatorioDiario.ContaId).FirstOrDefault ();
+                .Where (c => c.Id == relatorioDiario.ContaId).FirstOrDefault ();
             if (conta == null)
                 return NotFound ();
 

@@ -29,10 +29,10 @@ namespace Pousada.Controllers
             if (id == null)
                 return NotFound ();
 
-            var reserva = await _context.Reserva
+            Reserva reserva = await _context.Reserva
                 .Include (r => r.Hospede)
                 .Include (r => r.Quarto)
-                .FirstOrDefaultAsync (m => m.Id == id);
+                .FirstOrDefaultAsync (r => r.Id == id);
             if (reserva == null)
                 return NotFound ();
 
@@ -75,7 +75,7 @@ namespace Pousada.Controllers
 
         public async Task<JsonResult> GetRoom (int id)
         {
-            var quarto = await _context.Quarto.Where (q => q.Id == id).FirstOrDefaultAsync ();
+            Quarto quarto = await _context.Quarto.Where (q => q.Id == id).FirstOrDefaultAsync ();
             return new JsonResult (quarto);
         }
 
@@ -84,7 +84,7 @@ namespace Pousada.Controllers
             if (id == null)
                 return NotFound ();
 
-            var reserva = await _context.Reserva.FindAsync (id);
+            Reserva reserva = await _context.Reserva.FindAsync (id);
             if (reserva == null)
                 return NotFound ();
 
@@ -127,7 +127,7 @@ namespace Pousada.Controllers
             var reserva = await _context.Reserva
                 .Include (r => r.Hospede)
                 .Include (r => r.Quarto)
-                .FirstOrDefaultAsync (m => m.Id == id);
+                .FirstOrDefaultAsync (r => r.Id == id);
 
             if (reserva == null)
                 return NotFound ();
@@ -139,7 +139,7 @@ namespace Pousada.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed (int id)
         {
-            var reserva = await _context.Reserva.FindAsync (id);
+            Reserva reserva = await _context.Reserva.FindAsync (id);
 
             Quarto quarto = _context.Quarto
                 .Where (q => q.Id == reserva.QuartoId).FirstOrDefault ();
