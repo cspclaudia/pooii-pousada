@@ -53,7 +53,7 @@ namespace Pousada.Controllers
             if (ModelState.IsValid)
             {
                 Reserva context = _context.Reserva
-                    .Where (r => r.DataEntrada == reserva.DataEntrada || r.DataSaida == reserva.DataSaida &&
+                    .Where (r => (r.DataEntrada == reserva.DataEntrada || r.DataSaida == reserva.DataSaida) &&
                         r.QuartoId == reserva.QuartoId).FirstOrDefault ();
 
                 if (context == null &&
@@ -68,8 +68,8 @@ namespace Pousada.Controllers
                     return RedirectToAction (nameof (Create), "Conta");
                 }
             }
-            ViewData["HospedeId"] = new SelectList (_context.Hospede, "Id", "Nome", reserva.HospedeId);
-            ViewData["QuartoId"] = new SelectList (_context.Quarto, "Id", "Numero", reserva.QuartoId);
+            ViewData["HospedeId"] = new SelectList (_context.Hospede, "Id", "Nome");
+            ViewData["QuartoId"] = new SelectList (_context.Quarto.Where (q => q.Disponivel == true), "Id", "Numero");
             return View (reserva);
         }
 
