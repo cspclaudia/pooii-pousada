@@ -68,6 +68,15 @@ namespace Pousada.Controllers
             if (conta == null)
                 return NotFound ();
 
+            var relatoriosConta = await _context.RelatorioDiario
+                .Where (r => r.ContaId == id).ToListAsync ();
+
+            int relatorios = relatoriosConta.Count;
+            int dias = (conta.Reserva.DataSaida.Subtract (conta.Reserva.DataEntrada)).Days;
+
+            if (relatorios != dias)
+                return RedirectToAction (nameof (Index), "RelatorioDiario", new { id = conta.Id });
+
             try
             {
                 double taxa = conta.ValorTotal * 0.05;
