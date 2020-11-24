@@ -16,7 +16,7 @@
             @Html.DisplayFor(model => model.Quarto.Numero)
         </dd>
         <dt class="col-sm-2">
-            Hospede
+            Hóspede
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Hospede.Nome)
@@ -36,7 +36,9 @@
     </dl>
 </div>
 <div>
-    <a type="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    @if (Model.DataSaida.CompareTo(DateTime.Today) >= 0) {
+        <a type="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+    }
     <a type="button" class="btn btn-light" asp-action="Index">Lista de Reservas</a>
 </div><br><br>
 <div>

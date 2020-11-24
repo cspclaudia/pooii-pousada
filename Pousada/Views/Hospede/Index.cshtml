@@ -1,10 +1,10 @@
 @model IEnumerable<Pousada.Models.Hospede>
 
 @{
-    ViewData["Title"] = "Hospede";
+    ViewData["Title"] = "Hóspede";
 }
 
-<h1>Lista de Hospedes</h1>
+<h1>Lista de Hóspedes</h1>
 
 <form asp-action="Index" method="get">
     <div class="row">
@@ -17,7 +17,7 @@
         <div class="col-auto">
             <input class="btn btn-dark" type="submit" value="Pesquisar" /> |
             <a type="button" class="btn btn-dark" asp-action="Index">Ver Todos</a> |
-            <a type="button" class="btn btn-dark" asp-action="Create">Cadastrar Hospede</a>
+            <a type="button" class="btn btn-dark" asp-action="Create">Cadastrar Hóspede</a>
         </div>
     </div>
 </form>

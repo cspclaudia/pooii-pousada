@@ -1,10 +1,10 @@
 @model Pousada.Models.Hospede
 
 @{
-    ViewData["Title"] = "Hospede";
+    ViewData["Title"] = "Hóspede";
 }
 
-<h1>Excluir Hospede</h1>
+<h1>Excluir Hóspede</h1>
 
 <div>
     <hr />
@@ -61,7 +61,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Confirmar" class="btn btn-dark" /> |
-        <a type="button" class="btn btn-light" asp-action="Index">Lista de Hospede</a>
+        <input type="submit" value="Confirmar" class="btn btn-dark" />
+        <a type="button" class="btn btn-light" asp-action="Index">Lista de Hóspede</a>
     </form>
 </div>

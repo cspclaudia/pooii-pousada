@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>Quarto</th>
-            <th>Hospede</th>
+            <th>Hóspede</th>
             <th>Data de Entrada</th>
             <th>Data de Saída</th>
             <th></th>
@@ -37,7 +37,9 @@
             <td>                
                 <a type="button" class="btn btn-dark" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
                 <a type="button" class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
-                <a type="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                @if (item.DataSaida.CompareTo(DateTime.Today) >= 0) {
+                    <a type="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                }
             </td>
         </tr>
 }

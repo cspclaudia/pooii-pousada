@@ -16,13 +16,13 @@
             @Html.DisplayFor(model => model.Conta.Reserva.Quarto.Numero)
         </dd class>
         <dt class="col-sm-3">
-            Hospede
+            Hóspede
         </dt>
         <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Conta.Reserva.Hospede.Nome)
         </dd class>
         <dt class="col-sm-3">
-            Período
+            Período da Diária
         </dt>
         <dd class="col-sm-9">
             @Html.DisplayFor(model => model.DataInicial) a @Html.DisplayFor(model => model.DataFinal)
@@ -66,6 +66,8 @@
     </dl>
 </div>
 <div>
-    <a type="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    @if(Model.Conta.StatusPagamento != "Aprovado"){
+        <a type="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+    }
     <a type="button" class="btn btn-light" asp-action="Index" asp-route-id="@Model.ContaId">Lista de Relatórios</a>
 </div>

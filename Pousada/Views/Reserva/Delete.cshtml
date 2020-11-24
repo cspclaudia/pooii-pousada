@@ -16,7 +16,7 @@
             @Html.DisplayFor(model => model.Quarto.Numero)
         </dd>
         <dt class="col-sm-2">
-            Hospede
+            Hóspede
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Hospede.Nome)
@@ -37,7 +37,7 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Confirmar" class="btn btn-dark" /> |
+        <input type="submit" value="Confirmar" class="btn btn-dark" />
     <a type="button" class="btn btn-light" asp-action="Index">Lista de Reservas</a>
     </form>
 </div>

@@ -15,7 +15,7 @@
                 <select asp-for="ContaId" class ="form-control" asp-items="ViewBag.ContaId"></select>
             </div>
             <div class="form-group">
-                <label class="control-label">Data Incial do Período</label>
+                <label class="control-label">Data Incial da Diária</label>
                 <input asp-for="DataInicial" class="form-control" />
                 <span asp-validation-for="DataInicial" class="text-danger"></span>
             </div>
@@ -30,7 +30,7 @@
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Confirmar" class="btn btn-dark" /> |
+                <input type="submit" value="Confirmar" class="btn btn-dark" />
                 <a type="button" class="btn btn-light" asp-controller="Conta" asp-action="Index">Lista de Contas</a>
             </div>
         </form>

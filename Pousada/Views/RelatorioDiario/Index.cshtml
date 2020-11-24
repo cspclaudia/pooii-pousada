@@ -10,8 +10,8 @@
     <thead>
         <tr>
             <th>Número do Quarto</th>
-            <th>Hospede</th>
-            <th>Período</th>
+            <th>Hóspede</th>
+            <th>Período da Diária</th>
             <th>Valor Total do Período</th>
             <th></th>
         </tr>
@@ -34,7 +34,9 @@
             <td>
                 <a type="button" class="btn btn-dark" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
                 @* <a type="button" class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Excluir</a> *@
-                <a type="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                @if(item.Conta.StatusPagamento != "Aprovado"){
+                    <a type="button" class="btn btn-dark" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                }
             </td>
         </tr>
 }
