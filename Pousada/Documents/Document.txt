@@ -1,0 +1,101 @@
+Design Patterns utilizados:
+- Prototype
+- Proxy
+- Strategy
+
+O Prototype foi utilizado para a criação de novos quartos e
+pode ser indentificado pelas classes: Quarto, IQuarto e Reserva.
+No Controller de Quarto são instanciados três tipos diferentes 
+de quartos que são utilizados como "protótipos" para a criação 
+de novos quartos pelo médoto Clonar.
+
+O Proxy foi utilizado para estruturar o pagamento e pode ser 
+identificado pelas classes: Cartao, Dinheiro, IPagamento e Conta.
+No Controller de Conta é definido o tipo de pagamento que pode ser
+ou não aprovado caso seja cartão e é aprovado caso seja dinheiro e
+isso é feito pelos métodos RealizarPagamento e VerificarPagamento.
+
+O Strategy foi utilizado para calcular o valor total do relatório
+diário e pode ser identificado pelas classes: RelatorioDiario,
+IValor, Valor1, Valor2, Valor3 e Valor4. No Controller de 
+RelatorioDiario é definido qual algoritimo será utilizado caso 
+seja incluso ou não a alimentação e o telefonema e isso é feito 
+pelo método CalcularValor.
+
+No programa, a partir da página inicial é possível:
+- cadastrar hóspede;
+- ver a lista de hóspedes onde é possível pesquisar por hóspede;
+- fazer uma nova reserva;
+- ver lista de reservas;
+- ver lista das contas das reservas;
+- cadastrar quarto;
+- ver lista de quartos.
+
+A partir da lista de hóspedes é possível:
+- pesquisar hóspede por nome e/ou data de nascimento;
+- listar todos os hóspedes;
+- cadastrar hóspede informando nome, logradouro, telefone, bairro, 
+cidade, estado, data de nascimento e rg;
+- ver página com detalhes de cada hóspede;
+- editar hóspede;
+- excluir hóspede.
+
+A partir da página de detalhes de cada hóspede é possível:
+- editar hóspede;
+- ir para lista de hóspedes.
+
+A partir da lista de quartos é possível:
+- cadastrar quarto informando número e tipo da acomodação;
+- ver página com detalhes de cada quarto;
+- editar quarto;
+- excluir quarto.
+
+A partir da página de detalhes de cada quarto é possível:
+- editar quarto;
+- ir para lista de quartos.
+
+A partir da lista de reservas é possível:
+- fazer uma nova reserva informando número do quarto, nome do hóspede, 
+dia de entrada e dia de saída, sendo exibido na tela os dados de 
+cada quarto selecionado, como tipo de acomodação, número da acomodação, 
+descrição e disponibilidade (quando é feita uma nova reserva o usuário 
+é redirecionado para uma página para abrir a conta referente à reserva, 
+escolhendo o tipo de pagamento e haverá somente uma conta para cada reserva);
+- ver página com detalhes de cada reserva;
+- editar reserva (se o período da reserva não tiver finalizado);
+- excluir reserva;
+- ir para lista de contas.
+
+A partir da página de detalhes de cada reserva é possível:
+- editar reserva (se o período da reserva não tiver finalizado);
+- ir para a lista de reservas;
+- ver página com detalhes da conta da reserva;
+
+A partir da lista de contas é possível:
+- ver página com detalhes de cada conta;
+- editar conta (se a conta estiver em aberto);
+- ir para lista de reservas.
+
+A partir da página de detalhes de cada conta é possível:
+- editar conta (se a conta estiver em aberto);
+- ir para lista de contas;
+- ver página com detalhes da reserva da conta;
+- ir para lista de relatórios diários da conta (se já tiver sido gerado algum relatório);
+- gerar um relatório para cada diária informando a data inicial (se a conta estiver em aberto);
+- fechar a conta e cobrar o valor total da reserva (se a conta estiver em aberto e os relatórios 
+diários de cada diária já tiverem sido gerados);
+- ver a nota (se a conta estiver fechada);
+
+A partir da lista de relatórios diários da conta é possível:
+- ver página com detalhes dos relatórios diários de cada diária da reserva;
+- editar relatório diário (se a conta estiver em aberto);
+- ver página com detalhes da conta;
+- ir para lista de contas.
+
+A partir da página de detalhes de relatórios diários da conta é possível:
+- editar relatório diário (se a conta estiver em aberto);
+- ir para lista de relatórios diários da conta.
+
+A partir da página da nota é possível:
+- ver página com detalhes da conta;
+- ir para lista de contas.
