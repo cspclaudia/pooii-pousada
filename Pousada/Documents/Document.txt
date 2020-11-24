@@ -1,3 +1,5 @@
+------- Para inicializar o projeto entre na pasta "Pousada" e digite o comando "dotnet watch run" -------
+
 Design Patterns utilizados:
 - Prototype
 - Proxy
